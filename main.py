@@ -2,7 +2,7 @@ import os
 from google.appengine.ext import ndb
 import jinja2
 import webapp2
-
+from google.appengine.api import users
 
 JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
