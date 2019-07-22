@@ -1,9 +1,0 @@
-../yelpapi/__init__.py
-../yelpapi/__init__.pyc
-../yelpapi/yelpapi.py
-../yelpapi/yelpapi.pyc
-PKG-INFO
-SOURCES.txt
-dependency_links.txt
-requires.txt
-top_level.txt
