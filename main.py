@@ -3,6 +3,9 @@ from google.appengine.ext import ndb
 import jinja2
 import webapp2
 from google.appengine.api import users
+from google.appengine.api import urlfetch
+import os
+import json
 
 JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
