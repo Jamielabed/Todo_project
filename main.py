@@ -63,10 +63,6 @@ def get_dist_matrix(curLoc, rest):
 
 class MapsPage(webapp2.RequestHandler):
     API_KEY = "AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
-
-
-
-
     def get(self):
         #currentLocation = get_current_location()
         currentLocation = json.loads(get_current_location())
