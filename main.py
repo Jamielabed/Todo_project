@@ -60,6 +60,7 @@ def get_dist_matrix(curLoc, rest):
              method=urlfetch.POST,
              headers=headers)
     return json.loads(result.content)
+
 class MapsPage(webapp2.RequestHandler):
     API_KEY = "AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
 
@@ -91,6 +92,6 @@ class MapsPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/searchResults', searchResults)
+    ('/searchResults', searchResults),
     ('/maps', MapsPage)
 ], debug=True)
