@@ -19,3 +19,5 @@ def get(self):
         distMatrix = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + latitude + "," + longitude + "&destinations=" + restaurant.name + "&key=AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
         restaurant.distance = distMatrix.rows[0].elements[0].distance.text
         restaurant.duration = distMatrix.rows[0].elements[0].duration.text
+        print restaurant
+        print restaurant.duration
