@@ -6,7 +6,7 @@ from google.appengine.api import users
 from google.appengine.api import urlfetch
 import os
 import json
-from yelpapi import yelpAPI
+from yelpapi import YelpAPI
 
 YELP_API_KEY = "cXFG1vvpqbRy7gQvhqKcbklCku8oq5AhVf5_goxfJ74qz6LcIAqB9fvzx7nZZI92ChAMHJ_02aQ923Q55Zstp8pfKZ4IYDE6iStAkPAF1PtOZkvCQq9Rx-W-hxU2XXYx"
 
@@ -22,7 +22,15 @@ class MainPage(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html'
         index_template = JINJA_ENV.get_template('templates/main.html')
 
+class searchResults(webapp2.RequestHandler):
+    def get(self): #for a get request
+        self.response.headers['Content-Type'] = 'text/html'
+        index_template = JINJA_ENV.get_template('templates/main.html')
+        yelp_api = YelpAPI(YELP_API_KEY)
+        results = yelp_api.search_query(location= "Chicago, IL")
+        return json.loads(results)
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage)
+    ('/', MainPage),
+    ('/searchResults', searchResults)
 ], debug=True)
