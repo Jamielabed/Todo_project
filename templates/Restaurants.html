@@ -6,9 +6,9 @@
   </head>
   <body>
     <ul>
-       {%for each_business in businesses%}
+       {%for each_business in data.businesses%}
        <li>
-         <a href = "/searchResults?location={{each_business.city}}">{{each_business.rating}}</a>
+         <a href = "{{each_business.url}}">{{each_business.name}}</a>
          <input type="checkbox" name="" value="">
        </li>
        {% endfor %}

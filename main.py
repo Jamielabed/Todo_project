@@ -26,7 +26,7 @@ def get_restaurant_info(city):
         method=urlfetch.GET,
         url = "https://api.yelp.com/v3/businesses/search?location="+city,
         headers=headers).content
-    return result
+    return json.loads(result)
 
 
 class MainPage(webapp2.RequestHandler):
@@ -53,10 +53,15 @@ class AddInterestPage(webapp2.RequestHandler):
 
 class searchResults(webapp2.RequestHandler):
     def get(self): #for a get request
+        query = self.request.get("location")
         self.response.headers['Content-Type'] = 'text/html'
-        index_template = JINJA_ENV.get_template('templates/main.html')
-
-        self.response.write(get_restaurant_info("Seattle"))
+        location = self.request.get('location')
+        index_template = JINJA_ENV.get_template('templates/Restaurants.html')
+        data = {
+            'data': get_restaurant_info(query)
+        }
+        print data
+        self.response.write(index_template.render(data))
 
 
 
