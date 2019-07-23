@@ -203,6 +203,18 @@ def sortbyDuration(restaurantsList):
         duration_int = int(duration.split()[0])
         restaurant['duration_int'] = duration_int
         print restaurant['name'] + ' , ' + str(restaurant['duration_int'])
+    for num in range(len(restaurantsList)-1):
+        j = num + 1
+        while j < len(restaurantsList):
+            if restaurantsList[num]['duration_int'] > restaurantsList[j]['duration_int']:
+                temp = restaurantsList[num]
+                restaurantsList[num] = restaurantsList[j]
+                restaurantsList[j] = temp
+
+            else:
+                j+=1
+
+
 
 # name = result['businesses'][num]['name']
 # categories = result['businesses'][num]['categories'][cat_num]['title']
