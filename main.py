@@ -51,6 +51,48 @@ class AddInterestPage(webapp2.RequestHandler):
 
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
+        print('fine')
+    def post(self):
+        template = JINJA_ENV.get_template('templates/InterestPage.html')
+        # data = {
+        # 'Interests': Interest.query(ancestor=root_parent()).fetch(),
+        # 'AddInterest':  Interest.query(ancestor=root_parent()).fetch()
+        # }
+        # print(data['Interests'])
+        # new_food = Interest(parent=root_parent())
+        # print(new_food)
+        # new_food.name = self.request.get('new_intrest')
+        # print(new_food.name)
+        # data['Interests'].append(new_food)
+        # print(data['Interests'])
+        new_interest = Interest(parent = root_parent())
+        for i in range(1,4):
+            added = self.request.get('new_interest'+str(i))
+            if(added != ""):
+                #go throough all interests in the database
+                #and if any match what we are about to add,
+                #then don't add it. Otherwise, add it
+                new_interest.interests = added
+                existing_interests = Interest.query(Interest.interests == added, ancestor = root_parent()).fetch()
+                if(len(existing_interests) == 0):
+                    new_interest.put()
+
+
+        self.response.headers['Content-Type'] = 'text/html'
+        self.redirect('/AddInterest')
+        print(new_interest)
+        print("this is a test line")
+        print(added)
+
+class DeleteInterests(webapp2.RequestHandler):
+    def post(self):
+        to_delete = self.request.get('to_delete', allow_multiple=True)
+        for entry in to_delete:
+            key = ndb.Key(urlsafe=entry)
+            key.delete()
+        # redirect to '/' so that the MainPage.get() handler will run and show
+        # the list of dogs.
+        self.redirect('/AddInterest')
 
 
 class searchResults(webapp2.RequestHandler):
