@@ -10,8 +10,6 @@ from Restaurant_models import Restaurant
 import yelpapikey
 
 
-
-
 JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -21,12 +19,13 @@ def get_restaurant_info(city):
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
     'Authorization': 'Bearer '+yelpapikey.YELP_API_KEY}
 
-    result = urlfetch.fetch(
+    result_unformatted = urlfetch.fetch(
         #payload = form_data,
         method=urlfetch.GET,
         url = "https://api.yelp.com/v3/businesses/search?location="+city,
         headers=headers).content
-    return json.loads(result)
+    result = json.loads(result_unformatted)
+    return result
 
 
 class MainPage(webapp2.RequestHandler):
@@ -68,20 +67,57 @@ class searchResults(webapp2.RequestHandler):
 
 
 
+
+class MapsPage(webapp2.RequestHandler):
+    API_KEY = "AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
+    def get(self):
+        currentLocation = json.loads(get_current_location())
+        food_types = ["Pizza", "American (New)", "Italian"]
+        # returns restaurants that match user preferences
+        restaurants_out = filterRestaurants(food_types)
+        # adds distance and duration attributes and returns restaurants_out
+        restaurants_out = getDistances(restaurants_out)
+
+
+def filterRestaurants(user_food_types):
+    restaurants = get_restaurant_info("Chicago")
+    restaurants_out = []
+    for num in range(len(restaurants['businesses'])):
+        categories = restaurants['businesses'][num]['categories']
+        include = False
+        for cat_num in range(len(categories)):
+            for type in user_food_types:
+                if type == categories[cat_num]['title']:
+                    include = True
+        if include == True:
+            restaurants_out.append(restaurants["businesses"][num])
+    return restaurants_out
+
+def getDistances(restaurantsList):
+    currentLocation = json.loads(get_current_location())
+    for restaurant in restaurantsList:
+        distMatrix = get_dist_matrix(currentLocation,restaurant)
+        restaurant["distance"] = distMatrix['rows'][0]['elements'][0]['distance']['text']
+        restaurant["duration"] = distMatrix['rows'][0]['elements'][0]['duration']['text']
+        print restaurant['name']
+        print restaurant['distance']
+        print restaurant['duration']
+    return restaurantsList
+
 def get_current_location():
-    print "in current location"
-    #def post(self):
-    print "in post"
     headers = {'Content-Type': 'application/json'}
     result = urlfetch.fetch(
              url="https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE",
              method=urlfetch.POST,
              headers=headers)
     return result.content
+
 def get_dist_matrix(curLoc, rest):
-    latitude = curLoc["location"]["lat"]
-    longitude = curLoc["location"]["lng"]
-    distMatrixURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str(latitude) + "," + str(longitude) + "&destinations=" + rest["name"] + "&key=AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
+    current_latitude = curLoc["location"]["lat"]
+    current_longitude = curLoc["location"]["lng"]
+    dest_lat = rest['coordinates']['latitude']
+    dest_long = rest['coordinates']['longitude']
+    distMatrixURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str(current_latitude) + "," + str(current_longitude) + "&destinations=" + str(dest_lat) + "," + str(dest_long) + "&key=AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
     headers = {'Content-Type': 'application/json'}
     result = urlfetch.fetch(
              url=distMatrixURL,
@@ -89,33 +125,17 @@ def get_dist_matrix(curLoc, rest):
              headers=headers)
     return json.loads(result.content)
 
-class MapsPage(webapp2.RequestHandler):
-    API_KEY = "AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
-    def get(self):
-        #currentLocation = get_current_location()
-        currentLocation = json.loads(get_current_location())
-        #self.response.write(currentLocation)
-        print "in get"
 
-        chicago = {
-            "name": "Chicago"
-        }
-        seattle = {
-            "name": "Seattle"
-        }
-        restaurantsList = [chicago, seattle]
-        for restaurant in restaurantsList:
-            # separate words in destination should be separated w + (San+Francisco) --> not implemented, see if affects output
-            # ^^ put into lat/long so shouldn't be an issue
-            distMatrix = get_dist_matrix(currentLocation,restaurant)
-            restaurant["distance"] = distMatrix['rows'][0]['elements'][0]['distance']['text']
-            restaurant["duration"] = distMatrix['rows'][0]['elements'][0]['duration']['text']
-            print restaurant
-            print restaurant['duration']
+# name = result['businesses'][num]['name']
+# categories = result['businesses'][num]['categories'][cat_num]['title']
+# latitude = result['businesses'][num]['coordinates']['latitude']
+# longitude = result['businesses'][num]['coordinates']['longitude']
+
+
 
 class FavoritesPage(webapp2.RequestHandler):
     def get(self):
-        template = JINJA_ENV.get_template('templates/InterestPage.html')
+        template = JINJA_ENV.get_template('templates/favorites.html')
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render())
 
