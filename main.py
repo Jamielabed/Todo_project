@@ -120,9 +120,23 @@ class MapsPage(webapp2.RequestHandler):
         # adds distance and duration attributes and returns restaurants_out
         restaurants_out = getDistances(restaurants_out)
 
+        user = users.get_current_user()
+        template = JINJA_ENV.get_template('templates/main.html')
+        data = {
+            'user': user,
+            'login_url': users.create_login_url(self.request.uri),
+            'logout_url': users.create_logout_url(self.request.uri),
+            "restaurants": restaurants_out
+        }
+        self.response.headers['Content-Type'] = 'text/html'
+        self.response.write(template.render(data))
+
+
+
 
 def filterRestaurants(user_food_types):
     restaurants = get_restaurant_info("Chicago")
+    print "got restaurant info"
     restaurants_out = []
     for num in range(len(restaurants['businesses'])):
         categories = restaurants['businesses'][num]['categories']
@@ -132,6 +146,7 @@ def filterRestaurants(user_food_types):
                 if type == categories[cat_num]['title']:
                     include = True
         if include == True:
+            print restaurants["businesses"][num]
             restaurants_out.append(restaurants["businesses"][num])
     return restaurants_out
 
@@ -167,6 +182,10 @@ def get_dist_matrix(curLoc, rest):
              headers=headers)
     return json.loads(result.content)
 
+def sortbyDuration(restaurantsList):
+    for restaurant in restaurantsList:
+        duration = restaurant['duration']
+        duration_int = int(duration.split()[0])
 
 # name = result['businesses'][num]['name']
 # categories = result['businesses'][num]['categories'][cat_num]['title']
