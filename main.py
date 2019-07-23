@@ -74,12 +74,23 @@ class AddInterestPage(webapp2.RequestHandler):
         # data['Interests'].append(new_food)
         # print(data['Interests'])
         new_interest = Interest(parent = root_parent())
-        added = self.request.get('new_interest')
-        new_interest.interests = added
-        new_interest.put()
+        for i in range(1,4):
+            added = self.request.get('new_interest'+str(i))
+            if(added != ""):
+                #go throough all interests in the database
+                #and if any match what we are about to add,
+                #then don't add it. Otherwise, add it
+                new_interest.interests = added
+                existing_interests = Interest.query(Interest.interests == added, ancestor = root_parent()).fetch()
+                if(len(existing_interests) == 0):
+                    new_interest.put()
+
+
         self.response.headers['Content-Type'] = 'text/html'
         self.redirect('/AddInterest')
         print(new_interest)
+        print("this is a test line")
+        print(added)
 
 class DeleteInterests(webapp2.RequestHandler):
     def post(self):
