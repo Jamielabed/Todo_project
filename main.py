@@ -71,18 +71,36 @@ class searchResults(webapp2.RequestHandler):
 
 
 
-class MapsPage(webapp2.RequestHandler):
-    API_KEY = "AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
+# class MapsPage(webapp2.RequestHandler):
+#     API_KEY = "AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
+#     def get(self):
+#
+#         user = users.get_current_user()
+#         template = JINJA_ENV.get_template('templates/main.html')
+#         data = {
+#             'user': user,
+#             'login_url': users.create_login_url(self.request.uri),
+#             'logout_url': users.create_logout_url(self.request.uri),
+#             "restaurants": restaurants_out,
+#             "api_key": googleapikey.GOOGLE_API_KEY
+#         }
+#         self.response.headers['Content-Type'] = 'text/html'
+#         self.response.write(template.render(data))
+
+class getCurrentLocation(webapp2.RequestHandler):
     def get(self):
-        currentLocation = json.loads(get_current_location())
+        self.response.headers['Content-Type'] = 'text/html'
+        latitude = self.request.get('lat')
+        longitude = self.request.get('long')
+        currentLocation = [latitude, longitude]
+        content = JINJA_ENV.get_template('templates/content.html')
         food_types = ["Pizza", "American (New)", "Italian"]
         # returns restaurants that match user preferences
         restaurants_out = filterRestaurants(food_types)
         # adds distance and duration attributes and returns restaurants_out
-        restaurants_out = getDistances(restaurants_out)
+        restaurants_out = getDistances(restaurants_out, currentLocation)
         sortbyDuration(restaurants_out)
         user = users.get_current_user()
-        template = JINJA_ENV.get_template('templates/main.html')
         data = {
             'user': user,
             'login_url': users.create_login_url(self.request.uri),
@@ -90,14 +108,8 @@ class MapsPage(webapp2.RequestHandler):
             "restaurants": restaurants_out,
             "api_key": googleapikey.GOOGLE_API_KEY
         }
-        self.response.headers['Content-Type'] = 'text/html'
-        self.response.write(template.render(data))
+        self.response.write(content.render(data))
 
-class getCurrentLocation(webapp2.RequestHandler):
-    def get(self):
-        self.response.headers['Content-Type'] = 'text/html'
-
-        self.response.write("<h1>Hello</h1>")
 
 
 def filterRestaurants(user_food_types):
@@ -114,8 +126,7 @@ def filterRestaurants(user_food_types):
             restaurants_out.append(restaurants["businesses"][num])
     return restaurants_out
 
-def getDistances(restaurantsList):
-    currentLocation = json.loads(get_current_location())
+def getDistances(restaurantsList, currentLocation):
     for restaurant in restaurantsList:
         distMatrix = get_dist_matrix(currentLocation,restaurant)
         restaurant["distance"] = distMatrix['rows'][0]['elements'][0]['distance']['text']
@@ -125,17 +136,17 @@ def getDistances(restaurantsList):
         print restaurant['duration']
     return restaurantsList
 
-def get_current_location():
-    headers = {'Content-Type': 'application/json'}
-    result = urlfetch.fetch(
-             url="https://www.googleapis.com/geolocation/v1/geolocate?key=" + googleapikey.GOOGLE_API_KEY,
-             method=urlfetch.POST,
-             headers=headers)
-    return result.content
+# def get_current_location():
+#     headers = {'Content-Type': 'application/json'}
+#     result = urlfetch.fetch(
+#              url="https://www.googleapis.com/geolocation/v1/geolocate?key=" + googleapikey.GOOGLE_API_KEY,
+#              method=urlfetch.POST,
+#              headers=headers)
+#     return result.content
 
 def get_dist_matrix(curLoc, rest):
-    current_latitude = curLoc["location"]["lat"]
-    current_longitude = curLoc["location"]["lng"]
+    current_latitude = curLoc[0]
+    current_longitude = curLoc[1]
     dest_lat = rest['coordinates']['latitude']
     dest_long = rest['coordinates']['longitude']
     distMatrixURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str(current_latitude) + "," + str(current_longitude) + "&destinations=" + str(dest_lat) + "," + str(dest_long) + "&key=" + googleapikey.GOOGLE_API_KEY
@@ -170,7 +181,7 @@ app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/AddInterest',AddInterestPage),
     ('/searchResults', searchResults),
-    ('/maps', MapsPage),
+    # ('/maps', MapsPage),
     ('/favorites', FavoritesPage),
     ('/location', getCurrentLocation)
 ], debug=True)
