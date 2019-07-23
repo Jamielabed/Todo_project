@@ -34,12 +34,19 @@ def get_restaurant_info(city):
         headers=headers).content
     result = json.loads(result_unformatted)
     return result
+def get_interests_list():
+    existing_interests = Interest.query(ancestor = root_parent()).fetch()
+    interests_list = []
+    for interest in existing_interests:
+        interests_list.append(interest.interests)
+    return interests_list
 
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         template = JINJA_ENV.get_template('templates/main.html')
+
         data = {
                  'user': user,
                  'login_url': users.create_login_url(self.request.uri),
@@ -134,7 +141,8 @@ class getCurrentLocation(webapp2.RequestHandler):
         longitude = self.request.get('long')
         currentLocation = [latitude, longitude]
         content = JINJA_ENV.get_template('templates/content.html')
-        food_types = ["Pizza", "American (New)", "Italian"]
+        existing_interests = Interest.query(ancestor = root_parent()).fetch()
+        food_types = get_interests_list()
         # returns restaurants that match user preferences
         restaurants_out = filterRestaurants(food_types)
         # adds distance and duration attributes and returns restaurants_out
@@ -227,7 +235,11 @@ class FavoritesPage(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENV.get_template('templates/favorites.html')
         self.response.headers['Content-Type'] = 'text/html'
-        self.response.write(template.render())
+        food_types = get_interests_list()
+        data = {
+            "food_types": food_types
+        }
+        self.response.write(template.render(data))
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),

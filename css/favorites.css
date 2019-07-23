@@ -1,9 +1,9 @@
 .outer-box {
   display:grid;
   grid-template-columns: 1fr 1fr;
-  outline-style: groove;
+
 }
 .box {
-  outline-style: dotted;
+
   margin:20px;
 }
