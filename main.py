@@ -8,21 +8,13 @@ import os
 import json
 from Restaurant_models import Restaurant
 import yelpapikey
+import googleapikey
 
 
 JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
-
-def root_parent():
-
-    return ndb.Key('Parent', 'default_parent')
-
-
-
-class Interest(ndb.Model):
-    interests = ndb.StringProperty()
 
 def get_restaurant_info(city):
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
@@ -45,41 +37,32 @@ class MainPage(webapp2.RequestHandler):
                  'user': user,
                  'login_url': users.create_login_url(self.request.uri),
                  'logout_url': users.create_logout_url(self.request.uri),
+                 "api_key": googleapikey.GOOGLE_API_KEY
                 }
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
 
+
 class AddInterestPage(webapp2.RequestHandler):
     def get(self):
+        possible_interests =["Afghan", "African", "Senegalese"]
         template = JINJA_ENV.get_template('templates/InterestPage.html')
         data = {
-        'Interests': Interest.query(ancestor=root_parent()).fetch()
+            'Interests': Interest.query(ancestor=root_parent()).fetch(),
+            'Possible_Interests': possible_interests
         }
-
-
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
-        print('fine')
+
+
     def post(self):
-        template = JINJA_ENV.get_template('templates/InterestPage.html')
-        # data = {
-        # 'Interests': Interest.query(ancestor=root_parent()).fetch(),
-        # 'AddInterest':  Interest.query(ancestor=root_parent()).fetch()
-        # }
-        # print(data['Interests'])
-        # new_food = Interest(parent=root_parent())
-        # print(new_food)
-        # new_food.name = self.request.get('new_intrest')
-        # print(new_food.name)
-        # data['Interests'].append(new_food)
-        # print(data['Interests'])
-        new_interest = Interest(parent = root_parent())
         for i in range(1,4):
             added = self.request.get('new_interest'+str(i))
             if(added != ""):
                 #go throough all interests in the database
                 #and if any match what we are about to add,
                 #then don't add it. Otherwise, add it
+                new_interest = Interest(parent = root_parent())
                 new_interest.interests = added
                 existing_interests = Interest.query(Interest.interests == added, ancestor = root_parent()).fetch()
                 if(len(existing_interests) == 0):
@@ -121,33 +104,49 @@ class searchResults(webapp2.RequestHandler):
 
 
 
-class MapsPage(webapp2.RequestHandler):
-    API_KEY = "AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
+# class MapsPage(webapp2.RequestHandler):
+#     API_KEY = "AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
+#     def get(self):
+#
+#         user = users.get_current_user()
+#         template = JINJA_ENV.get_template('templates/main.html')
+#         data = {
+#             'user': user,
+#             'login_url': users.create_login_url(self.request.uri),
+#             'logout_url': users.create_logout_url(self.request.uri),
+#             "restaurants": restaurants_out,
+#             "api_key": googleapikey.GOOGLE_API_KEY
+#         }
+#         self.response.headers['Content-Type'] = 'text/html'
+#         self.response.write(template.render(data))
+
+class getCurrentLocation(webapp2.RequestHandler):
     def get(self):
-        currentLocation = json.loads(get_current_location())
+        self.response.headers['Content-Type'] = 'text/html'
+        latitude = self.request.get('lat')
+        longitude = self.request.get('long')
+        currentLocation = [latitude, longitude]
+        content = JINJA_ENV.get_template('templates/content.html')
         food_types = ["Pizza", "American (New)", "Italian"]
         # returns restaurants that match user preferences
         restaurants_out = filterRestaurants(food_types)
         # adds distance and duration attributes and returns restaurants_out
-        restaurants_out = getDistances(restaurants_out)
-
+        restaurants_out = getDistances(restaurants_out, currentLocation)
+        sortbyDuration(restaurants_out)
         user = users.get_current_user()
-        template = JINJA_ENV.get_template('templates/main.html')
         data = {
             'user': user,
             'login_url': users.create_login_url(self.request.uri),
             'logout_url': users.create_logout_url(self.request.uri),
-            "restaurants": restaurants_out
+            "restaurants": restaurants_out,
+            "api_key": googleapikey.GOOGLE_API_KEY
         }
-        self.response.headers['Content-Type'] = 'text/html'
-        self.response.write(template.render(data))
-
+        self.response.write(content.render(data))
 
 
 
 def filterRestaurants(user_food_types):
     restaurants = get_restaurant_info("Chicago")
-    print "got restaurant info"
     restaurants_out = []
     for num in range(len(restaurants['businesses'])):
         categories = restaurants['businesses'][num]['categories']
@@ -157,12 +156,10 @@ def filterRestaurants(user_food_types):
                 if type == categories[cat_num]['title']:
                     include = True
         if include == True:
-            print restaurants["businesses"][num]
             restaurants_out.append(restaurants["businesses"][num])
     return restaurants_out
 
-def getDistances(restaurantsList):
-    currentLocation = json.loads(get_current_location())
+def getDistances(restaurantsList, currentLocation):
     for restaurant in restaurantsList:
         distMatrix = get_dist_matrix(currentLocation,restaurant)
         restaurant["distance"] = distMatrix['rows'][0]['elements'][0]['distance']['text']
@@ -172,20 +169,20 @@ def getDistances(restaurantsList):
         print restaurant['duration']
     return restaurantsList
 
-def get_current_location():
-    headers = {'Content-Type': 'application/json'}
-    result = urlfetch.fetch(
-             url="https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE",
-             method=urlfetch.POST,
-             headers=headers)
-    return result.content
+# def get_current_location():
+#     headers = {'Content-Type': 'application/json'}
+#     result = urlfetch.fetch(
+#              url="https://www.googleapis.com/geolocation/v1/geolocate?key=" + googleapikey.GOOGLE_API_KEY,
+#              method=urlfetch.POST,
+#              headers=headers)
+#     return result.content
 
 def get_dist_matrix(curLoc, rest):
-    current_latitude = curLoc["location"]["lat"]
-    current_longitude = curLoc["location"]["lng"]
+    current_latitude = curLoc[0]
+    current_longitude = curLoc[1]
     dest_lat = rest['coordinates']['latitude']
     dest_long = rest['coordinates']['longitude']
-    distMatrixURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str(current_latitude) + "," + str(current_longitude) + "&destinations=" + str(dest_lat) + "," + str(dest_long) + "&key=AIzaSyAfFZHWxBjkkd8vi12mY4d3IOaDHdBkuWE"
+    distMatrixURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str(current_latitude) + "," + str(current_longitude) + "&destinations=" + str(dest_lat) + "," + str(dest_long) + "&key=" + googleapikey.GOOGLE_API_KEY
     headers = {'Content-Type': 'application/json'}
     result = urlfetch.fetch(
              url=distMatrixURL,
@@ -197,6 +194,20 @@ def sortbyDuration(restaurantsList):
     for restaurant in restaurantsList:
         duration = restaurant['duration']
         duration_int = int(duration.split()[0])
+        restaurant['duration_int'] = duration_int
+        print restaurant['name'] + ' , ' + str(restaurant['duration_int'])
+    for num in range(len(restaurantsList)-1):
+        j = num + 1
+        while j < len(restaurantsList):
+            if restaurantsList[num]['duration_int'] > restaurantsList[j]['duration_int']:
+                temp = restaurantsList[num]
+                restaurantsList[num] = restaurantsList[j]
+                restaurantsList[j] = temp
+
+            else:
+                j+=1
+
+
 
 # name = result['businesses'][num]['name']
 # categories = result['businesses'][num]['categories'][cat_num]['title']
@@ -214,8 +225,8 @@ class FavoritesPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/AddInterest',AddInterestPage),
-    ('/DeleteInterests', DeleteInterests),
     ('/searchResults', searchResults),
-    ('/maps', MapsPage),
-    ('/favorites', FavoritesPage)
+    # ('/maps', MapsPage),
+    ('/favorites', FavoritesPage),
+    ('/location', getCurrentLocation)
 ], debug=True)

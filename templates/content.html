@@ -1,0 +1,30 @@
+{% if user %}
+ <h1>User is {{user.email()}}</h1>
+ <h2 id="favorites"><img id="star" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHjO4onL1qVCFQFuoWIvlghfdu9ACkU3hWj8O8WGC6kCQJTS1bMw"></img>  Favorites</h2>
+ <!--if food preferences != NONE -->
+
+
+ <div class="box1">
+ <div class="flex-container">
+ {%for restaurant in restaurants%}
+  <div class="restaurant">{{restaurant['name']}}</div>
+  {%endfor%}
+  </div>
+</div>
+
+<div class="flex-container">
+  {%for restaurant in restaurants%}
+   <div class="restaurant">{{restaurant['duration']}}</div>
+  {%endfor%}
+</div>
+
+ <!--
+ {% for each_restaurant in restaurants_five_to_ten %}
+ {%endfor%}
+-->
+ <br>
+ <a href="{{logout_url}}">Logout</a>
+ {% else %}
+<h1>No user!</h1>
+ <a href="{{login_url}}">Login</a>
+{% endif %}
