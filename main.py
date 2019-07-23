@@ -15,6 +15,13 @@ JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
+def root_parent():
+
+    return ndb.Key('Parent', 'default_parent')
+
+
+class Interest(ndb.Model):
+    interests = ndb.StringProperty()
 
 def get_restaurant_info(city):
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
@@ -42,10 +49,10 @@ class MainPage(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
 
-
+possible_interests =["Afghan", "African", "Senegalese"]
 class AddInterestPage(webapp2.RequestHandler):
     def get(self):
-        possible_interests =["Afghan", "African", "Senegalese"]
+
         template = JINJA_ENV.get_template('templates/InterestPage.html')
         data = {
             'Interests': Interest.query(ancestor=root_parent()).fetch(),
@@ -56,7 +63,7 @@ class AddInterestPage(webapp2.RequestHandler):
 
 
     def post(self):
-        for i in range(1,4):
+        for i in range(len(possible_interests)):
             added = self.request.get('new_interest'+str(i))
             if(added != ""):
                 #go throough all interests in the database
@@ -227,6 +234,7 @@ app = webapp2.WSGIApplication([
     ('/AddInterest',AddInterestPage),
     ('/searchResults', searchResults),
     # ('/maps', MapsPage),
+    ('/DeleteInterests', DeleteInterests),
     ('/favorites', FavoritesPage),
     ('/location', getCurrentLocation)
 ], debug=True)

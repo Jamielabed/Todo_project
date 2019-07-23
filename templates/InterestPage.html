@@ -13,12 +13,12 @@
       <div>
         Food:
         <ul>
-          {% set count = 1 %}
+          {% set count =0 %}
           {% for i in Possible_Interests%}
           <li> <input type="checkbox" id="interest" name="new_interest{{count}}" value="{{i}}"> {{i}} </li>
           {% set count = count + 1 %}
           {% endfor %}
-        
+
         </ul>
       </div>
 
