@@ -9,38 +9,29 @@
     <h1>Add Interest</h1>
     <form method="post">
       <div>
-        Food: <input type="text" name="dog_name" value="">
+        Food: <input type="text" id="interest" name="new_interest" value="">
       </div>
 
       <input type="submit" name="" value="Submit">
     </form>
 
 
-        <h1>Interests</h1>
-        <form class="" action="/delete_dogs" method="post">
-          <table>
-            <tr>
-              <th>Added Interest</th>
+    <h1>Interests</h1>
+    <form class="" action="/DeleteInterests" method="post">
+      <table>
+        <tr>
+          <th>Added Interests</th>
 
-            </tr>
-            {% for dog in dogs %}
-            <tr>
-              <td>{{dog.name}}</td>
-              <td>{{dog.kind}}</td>
-              <td>
-                {%if dog.hungry %}
-                Yes
-                {% else %}
-                No
-                {% endif %}
-              </td>
-              <td><input type="checkbox" name="to_delete" value="{{dog.key.urlsafe()}}"></td>
-            </tr>
-            {% endfor %}
-          </table>
-          <input type="submit" name="" value="Delete Selected">
-        </form>
-
+        </tr>
+        {% for d in Interests %}
+        <tr>
+          <td>{{d.interests}}</td>
+          <td><input type="checkbox" name="to_delete" value="{{d.key.urlsafe()}}"></td>
+        </tr>
+        {% endfor %}
+      </table>
+      <input type="submit" name="" value="Delete Selected">
+    </form>
 
   </body>
 </html>
