@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <ul>
+       {%for each_business in data.businesses%}
+       <li>
+         <a href = "{{each_business.url}}">{{each_business.name}} {{each_business.location.address1}} {{each_business.rating}}</a>
+       </li>
+       {% endfor %}
+     </ul>
+
+  </body>
+</html>

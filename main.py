@@ -6,8 +6,9 @@ from google.appengine.api import users
 from google.appengine.api import urlfetch
 import os
 import json
+from Restaurant_models import Restaurant
+import yelpapikey
 
-YELP_API_KEY = "cXFG1vvpqbRy7gQvhqKcbklCku8oq5AhVf5_goxfJ74qz6LcIAqB9fvzx7nZZI92ChAMHJ_02aQ923Q55Zstp8pfKZ4IYDE6iStAkPAF1PtOZkvCQq9Rx-W-hxU2XXYx"
 
 
 
@@ -15,6 +16,17 @@ JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
+
+def get_restaurant_info(city):
+    headers = {'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': 'Bearer '+yelpapikey.YELP_API_KEY}
+
+    result = urlfetch.fetch(
+        #payload = form_data,
+        method=urlfetch.GET,
+        url = "https://api.yelp.com/v3/businesses/search?location="+city,
+        headers=headers).content
+    return json.loads(result)
 
 
 class MainPage(webapp2.RequestHandler):
@@ -41,22 +53,19 @@ class AddInterestPage(webapp2.RequestHandler):
 
 class searchResults(webapp2.RequestHandler):
     def get(self): #for a get request
+        query = self.request.get("location")
         self.response.headers['Content-Type'] = 'text/html'
-        index_template = JINJA_ENV.get_template('templates/main.html')
-        try:
-            #form_data = {'location': 'Chicago'}
-            headers = {'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer '+YELP_API_KEY}
+        location = self.request.get('location')
+        index_template = JINJA_ENV.get_template('templates/Restaurants.html')
+        data = {
+            'data': get_restaurant_info(query)
+        }
+        print data
+        self.response.write(index_template.render(data))
 
-            result = urlfetch.fetch(
-                #payload = form_data,
-                method=urlfetch.GET,
-                url = "https://api.yelp.com/v3/businesses/search?location=Chicago",
-                headers=headers)
 
-            self.response.write(result.content)
-        except urlfetch.Error:
-            logging.exception('Caught exception fetching url')
+
+
 
 
 def get_current_location():
