@@ -14,8 +14,8 @@
      <h1>5-10 min</h1>
      <div class="box1">
      <div class="flex-container">
-     {%for num in range(1,9)%}
-      <div class="restaurant">{{num}}</div>
+     {%for restaurant in restaurants%}
+      <div class="restaurant">{{restaurant['name']}}</div>
       {%endfor%}
       </div>
     </div>
@@ -32,7 +32,7 @@
      let restaurants = document.querySelectorAll(".restaurant")
      for (restaurant of restaurants) {
        restaurant.style.width = w
-       restaurant.style.lineHeight = w
+       restaurant.style.height = w
      }
    }
    boxWidth()
