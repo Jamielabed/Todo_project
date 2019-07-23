@@ -53,6 +53,7 @@ class searchResults(webapp2.RequestHandler):
                 method=urlfetch.GET,
                 url = "https://api.yelp.com/v3/businesses/search?location=Chicago",
                 headers=headers)
+
             self.response.write(result.content)
         except urlfetch.Error:
             logging.exception('Caught exception fetching url')
@@ -103,10 +104,16 @@ class MapsPage(webapp2.RequestHandler):
             print restaurant
             print restaurant['duration']
 
+class FavoritesPage(webapp2.RequestHandler):
+    def get(self):
+        template = JINJA_ENV.get_template('templates/InterestPage.html')
+        self.response.headers['Content-Type'] = 'text/html'
+        self.response.write(template.render())
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/AddInterest',AddInterestPage),
     ('/searchResults', searchResults),
-    ('/maps', MapsPage)
+    ('/maps', MapsPage),
+    ('/favorites', FavoritesPage)
 ], debug=True)

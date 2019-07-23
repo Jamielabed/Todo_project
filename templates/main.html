@@ -1,15 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Main</title>
+    <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
     {% if user %}
      <h1>User is {{user.email()}}</h1>
+     <h2 id="favorites"><img id="star" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHjO4onL1qVCFQFuoWIvlghfdu9ACkU3hWj8O8WGC6kCQJTS1bMw"></img>  Favorites</h2>
+     <!--if food preferences != NONE -->
+
+     <h1>5-10 min</h1>
+     <div class="box1">
+     <div class="flex-container">
+     {%for num in range(1,9)%}
+      <div class="restaurant">{{num}}</div>
+      {%endfor%}
+      </div>
+    </div>
+    <h1>20 min</h1>
+    <div class="flex-container">
+      {%for num in range(1,9)%}
+       <div class="restaurant">{{num}}</div>
+      {%endfor%}
+   </div>
+   <script>
+   function boxWidth() {
+     let x = screen.width
+     let w = (x - 160)/8  + "px"
+     let restaurants = document.querySelectorAll(".restaurant")
+     for (restaurant of restaurants) {
+       restaurant.style.width = w
+       restaurant.style.lineHeight = w
+     }
+   }
+   boxWidth()
+   // redirect to favorites page
+   favoritesBtn = document.querySelector("#favorites")
+   favoritesBtn.addEventListener('click', ()=> {
+     window.location.href = "/favorites";
+   })
+  </script>
+     <!--
+     {% for each_restaurant in restaurants_five_to_ten %}
+     {%endfor%}
+   -->
+     <br>
      <a href="{{logout_url}}">Logout</a>
      {% else %}
     <h1>No user!</h1>
      <a href="{{login_url}}">Login</a>
-     {% endif %}
+    {% endif %}
   </body>
 </html>
