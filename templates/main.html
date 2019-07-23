@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
+    <script type="text/javascript">
+    const GOOGLE_API_KEY = "{{api_key}}"
+    </script>
+    <script type="text/javascript" src="/js/location.js"></script>
+    <div id="restaurants_info"></div>
     {% if user %}
      <h1>User is {{user.email()}}</h1>
      <h2 id="favorites"><img id="star" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHjO4onL1qVCFQFuoWIvlghfdu9ACkU3hWj8O8WGC6kCQJTS1bMw"></img>  Favorites</h2>
@@ -25,23 +30,7 @@
        <div class="restaurant">{{num}}</div>
       {%endfor%}
    </div>
-   <script>
-   function boxWidth() {
-     let x = screen.width
-     let w = (x - 160)/8  + "px"
-     let restaurants = document.querySelectorAll(".restaurant")
-     for (restaurant of restaurants) {
-       restaurant.style.width = w
-       restaurant.style.height = w
-     }
-   }
-   boxWidth()
-   // redirect to favorites page
-   favoritesBtn = document.querySelector("#favorites")
-   favoritesBtn.addEventListener('click', ()=> {
-     window.location.href = "/favorites";
-   })
-  </script>
+   <script type="text/javascript" src="/js/main.js"></script>
      <!--
      {% for each_restaurant in restaurants_five_to_ten %}
      {%endfor%}
