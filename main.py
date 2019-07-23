@@ -7,8 +7,8 @@ from google.appengine.api import urlfetch
 import os
 import json
 from Restaurant_models import Restaurant
+import yelpapikey
 
-YELP_API_KEY = "cXFG1vvpqbRy7gQvhqKcbklCku8oq5AhVf5_goxfJ74qz6LcIAqB9fvzx7nZZI92ChAMHJ_02aQ923Q55Zstp8pfKZ4IYDE6iStAkPAF1PtOZkvCQq9Rx-W-hxU2XXYx"
 
 
 
@@ -57,6 +57,8 @@ class searchResults(webapp2.RequestHandler):
             self.response.write(result.content)
         except urlfetch.Error:
             logging.exception('Caught exception fetching url')
+
+
 
 
 
