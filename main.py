@@ -56,7 +56,7 @@ class searchResults(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html'
         index_template = JINJA_ENV.get_template('templates/main.html')
 
-        self.response.write(get_restaurant_info("Chicago"))
+        self.response.write(get_restaurant_info("Seattle"))
 
 
 
