@@ -17,6 +17,17 @@ JINJA_ENV = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+def get_restaurant_info(city):
+    headers = {'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': 'Bearer '+yelpapikey.YELP_API_KEY}
+
+    result = urlfetch.fetch(
+        #payload = form_data,
+        method=urlfetch.GET,
+        url = "https://api.yelp.com/v3/businesses/search?location="+city,
+        headers=headers).content
+    return result
+
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -44,19 +55,8 @@ class searchResults(webapp2.RequestHandler):
     def get(self): #for a get request
         self.response.headers['Content-Type'] = 'text/html'
         index_template = JINJA_ENV.get_template('templates/main.html')
-        try:
-            #form_data = {'location': 'Chicago'}
-            headers = {'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer '+YELP_API_KEY}
 
-            result = urlfetch.fetch(
-                #payload = form_data,
-                method=urlfetch.GET,
-                url = "https://api.yelp.com/v3/businesses/search?location=Chicago",
-                headers=headers)
-            self.response.write(result.content)
-        except urlfetch.Error:
-            logging.exception('Caught exception fetching url')
+        self.response.write(get_restaurant_info("Chicago"))
 
 
 
