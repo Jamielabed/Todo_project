@@ -3,7 +3,7 @@
  <h2 id="favorites"><img id="star" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHjO4onL1qVCFQFuoWIvlghfdu9ACkU3hWj8O8WGC6kCQJTS1bMw"></img>  Favorites</h2>
  <!--if food preferences != NONE -->
 
- <h1>5-10 min</h1>
+
  <div class="box1">
  <div class="flex-container">
  {%for restaurant in restaurants%}
@@ -11,13 +11,13 @@
   {%endfor%}
   </div>
 </div>
-<h1>20 min</h1>
+
 <div class="flex-container">
   {%for restaurant in restaurants%}
    <div class="restaurant">{{restaurant['duration']}}</div>
   {%endfor%}
 </div>
-<script type="text/javascript" src="/js/main.js"></script>
+
  <!--
  {% for each_restaurant in restaurants_five_to_ten %}
  {%endfor%}
