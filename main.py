@@ -42,7 +42,7 @@ class MainPage(webapp2.RequestHandler):
         template = JINJA_ENV.get_template('templates/main.html')
         data = {
                  'user': user,
-                 'login_url': users.create_login_url(self.request.uri),
+                 'login_url': users.create_login_url('/AddInterest'),
                  'logout_url': users.create_logout_url(self.request.uri),
                  "api_key": googleapikey.GOOGLE_API_KEY
                 }
