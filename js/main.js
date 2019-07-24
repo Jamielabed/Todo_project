@@ -13,4 +13,4 @@ favoritesBtn = document.querySelector("#favorites")
 favoritesBtn.addEventListener('click', ()=> {
   window.location.href = "/favorites";
 })
-console.log("IN JAVASCRIPT MAIN")
+//console.log("IN JAVASCRIPT MAIN")

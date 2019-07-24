@@ -9,6 +9,11 @@
     <div class = "outer-box">
       <div class = "box">
         <h1>Favorite Types</h1>
+        <ul>
+        {%for food_type in food_types%}
+          <li>{{food_type}}</li>
+        {%endfor%}
+        </ul>
       </div>
       <div class = "box">
         <h1>Favorite Restaurants</h1>
