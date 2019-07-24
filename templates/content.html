@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/js/location.js"></script>
     <div id="restaurants_info">
       {% if user %}
-       <h2>User is {{user.email()}}<span id="favorites"> Favorites</span></h2>
+       <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2>
        <br>
        <!--if food preferences != NONE -->
 
@@ -20,12 +20,12 @@
 
        <div class="flex-container">
        {%for restaurant in restaurants%}
-        <a href = "{{restaurant['url']}}"target="_blank"><div class="restaurant"><p class = "restaurant-head">{{restaurant['name']}}</p></div></a>
-        <!-- <button type="button">Click Me!</button> -->
+        <a href = "{{restaurant['url']}}"target="_blank"><div class="restaurant"><p class = "restaurant-head">{{restaurant['name']}}</p></a><button type="button" class = "add_restaurant">Click to Favorite Me!</button></div>
         {%endfor%}
         </div>
 
-`      <!--`
+
+      <!--`
       <div class="flex-container">
         {%for restaurant in restaurants%}
          <div class="restaurant"><p class = "restaurant-head">{{restaurant['duration']}}</p></div>
