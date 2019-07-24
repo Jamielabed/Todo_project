@@ -8,6 +8,7 @@
   <body>
     <div class = "outer-box">
       <div class = "box">
+<!-- this puts fav food types in a visable list -->
         <h1>Favorite Types</h1>
         <ul>
         {%for food_type in food_types%}
@@ -16,7 +17,13 @@
         </ul>
       </div>
       <div class = "box">
+<!-- this puts fav restaurants in a visable list -->
         <h1>Favorite Restaurants</h1>
+        <ul>
+        {%for fav_resturants in fav_resturants%}
+          <li>{{fav_resturants}}</li>
+        {%endfor%}
+        </ul>
       </div>
     </div>
   </body>
