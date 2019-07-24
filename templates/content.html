@@ -13,23 +13,24 @@
     <div id="restaurants_info">
       {% if user %}
        <h2>User is {{user.email()}}<span id="favorites"> Favorites</span></h2>
+       <br>
        <!--if food preferences != NONE -->
 
 
-       <div class="box1">
+
        <div class="flex-container">
        {%for restaurant in restaurants%}
-        <div class="restaurant"><p class = "restaurant-head">{{restaurant['name']}}</p></div>
+        <a href = "{{restaurant['url']}}"><div class="restaurant"><p class = "restaurant-head">{{restaurant['name']}}</p></div></a>
         {%endfor%}
         </div>
-      </div>
 
+`      <!--`
       <div class="flex-container">
         {%for restaurant in restaurants%}
          <div class="restaurant"><p class = "restaurant-head">{{restaurant['duration']}}</p></div>
         {%endfor%}
       </div>
-
+    ``-->
        <!--
        {% for each_restaurant in restaurants_five_to_ten %}
        {%endfor%}

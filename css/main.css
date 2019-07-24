@@ -13,6 +13,14 @@
   font-size: 30px;
 }
 
+a {
+  color: black;
+}
+
+a:hover {
+  background-color: gray;
+}
+
 .restaurant-head {
   display: inline-block;
   vertical-align: -100px;

@@ -34,9 +34,15 @@ def get_restaurant_info(lat,long):
         headers=headers).content
     result = json.loads(result_unformatted)
 
-    
+
     return result
 
+def get_interests_list():
+    existing_interests = Interest.query(ancestor = root_parent()).fetch()
+    interests_list = []
+    for interest in existing_interests:
+        interests_list.append(interest.interests)
+    return interests_list
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -51,7 +57,7 @@ class MainPage(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
 
-possible_interests =["Afghan", "African", "Senegalese", "Afghan ",
+possible_interests =["Afghan ",
 "African ",
 "Senegalese ",
 "South African ",

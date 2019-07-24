@@ -41,19 +41,12 @@ function formatBoxes() {
     let w = (x - 160)/8  + "px"
     let restaurants = document.querySelectorAll(".restaurant")
     for (restaurant of restaurants) {
+      console.log(restaurant.innerHTML)
       restaurant.style.width = w
       restaurant.style.height = w
     }
   }
   boxWidth()
-
-
-restaurants.addEventListener('mouseon', ()=> {
-  restaurants.innerHTML = "GO"
-})
-
-
-
 
   // redirect to favorites page
   favoritesBtn = document.querySelector("#favorites")
