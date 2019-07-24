@@ -23,14 +23,14 @@ def root_parent():
 class Interest(ndb.Model):
     interests = ndb.StringProperty()
 
-def get_restaurant_info(city):
+def get_restaurant_info(lat,long):
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
     'Authorization': 'Bearer '+yelpapikey.YELP_API_KEY}
 
     result_unformatted = urlfetch.fetch(
         #payload = form_data,
         method=urlfetch.GET,
-        url = "https://api.yelp.com/v3/businesses/search?location="+city,
+        url = "https://api.yelp.com/v3/businesses/search?latitude="+str(lat)+"&longitude="+str(long),
         headers=headers).content
     result = json.loads(result_unformatted)
     return result
@@ -297,10 +297,11 @@ class getCurrentLocation(webapp2.RequestHandler):
         longitude = self.request.get('long')
         currentLocation = [latitude, longitude]
         content = JINJA_ENV.get_template('templates/content.html')
-        existing_interests = Interest.query(ancestor = root_parent()).fetch()
         food_types = get_interests_list()
+        # REMOVE WHEN FOOD TYPES INPUT = WORKING
+        food_types = ["Pizza", "Italian"]
         # returns restaurants that match user preferences
-        restaurants_out = filterRestaurants(food_types)
+        restaurants_out = filterRestaurants(food_types,latitude,longitude)
         # adds distance and duration attributes and returns restaurants_out
         restaurants_out = getDistances(restaurants_out, currentLocation)
         sortbyDuration(restaurants_out)
@@ -316,8 +317,8 @@ class getCurrentLocation(webapp2.RequestHandler):
 
 
 
-def filterRestaurants(user_food_types):
-    restaurants = get_restaurant_info("Chicago")
+def filterRestaurants(user_food_types,lat,long):
+    restaurants = get_restaurant_info(lat,long)
     restaurants_out = []
     for num in range(len(restaurants['businesses'])):
         categories = restaurants['businesses'][num]['categories']

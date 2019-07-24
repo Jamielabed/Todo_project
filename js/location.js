@@ -45,6 +45,10 @@ function formatBoxes() {
     }
   }
   boxWidth()
+
+  function formatHeaders() {
+
+  }
   // redirect to favorites page
   favoritesBtn = document.querySelector("#favorites")
   favoritesBtn.addEventListener('click', ()=> {
