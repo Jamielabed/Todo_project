@@ -64,12 +64,31 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         template = JINJA_ENV.get_template('templates/main.html')
+        latitude = self.request.get('lat')
+        longitude = self.request.get('long')
+        currentLocation = [latitude, longitude]
+        food_types = get_interests_list()
+        restaurants_out = []
+        sortType = self.request.get('sort_selection')
+        print "SORTTYPE OUTSIDE: " + sortType
+        print "LATOUTSIDE: " + latitude
+        if latitude and longitude:
+            restaurants_out = filterRestaurants(food_types,latitude,longitude)
+            restaurants_out = getDistances(restaurants_out, currentLocation)
 
+            print "sortType: " + sortType
+            if sortType == "distance" or sortType == "sort-by":
+                sortbyDuration(restaurants_out)
+            elif sortType == "rating":
+                sortbyRating(restaurants_out)
         data = {
                  'user': user,
                  'login_url': users.create_login_url('/AddInterest'),
                  'logout_url': users.create_logout_url(self.request.uri),
-                 "api_key": googleapikey.GOOGLE_API_KEY
+                 "api_key": googleapikey.GOOGLE_API_KEY,
+                 'lat': latitude,
+                 'long': longitude,
+                 "restaurants": restaurants_out,
                 }
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
@@ -309,30 +328,37 @@ class searchResults(webapp2.RequestHandler):
 #         self.response.headers['Content-Type'] = 'text/html'
 #         self.response.write(template.render(data))
 
-class getCurrentLocation(webapp2.RequestHandler):
-    def get(self):
-        self.response.headers['Content-Type'] = 'text/html'
-        latitude = self.request.get('lat')
-        longitude = self.request.get('long')
-        currentLocation = [latitude, longitude]
-        content = JINJA_ENV.get_template('templates/content.html')
-        food_types = get_interests_list()
-        print food_types
-        # returns restaurants that match user preferences
-        restaurants_out = filterRestaurants(food_types,latitude,longitude)
-        # adds distance and duration attributes and returns restaurants_out
-        restaurants_out = getDistances(restaurants_out, currentLocation)
-        sortbyDuration(restaurants_out)
-        user = users.get_current_user()
-        data = {
-            'user': user,
-            'login_url': users.create_login_url(self.request.uri),
-            'logout_url': users.create_logout_url(self.request.uri),
-            "restaurants": restaurants_out,
-            "api_key": googleapikey.GOOGLE_API_KEY
-        }
-        self.response.write(content.render(data))
-
+# class getCurrentLocation(webapp2.RequestHandler):
+#     def get(self):
+#
+#         self.response.headers['Content-Type'] = 'text/html'
+#         latitude = self.request.get('lat')
+#         longitude = self.request.get('long')
+#         currentLocation = [latitude, longitude]
+#         content = JINJA_ENV.get_template('templates/content.html')
+#         food_types = get_interests_list()
+#         # returns restaurants that match user preferences
+#         restaurants_out = filterRestaurants(food_types,latitude,longitude)
+#         # adds distance and duration attributes and returns restaurants_out
+#         restaurants_out = getDistances(restaurants_out, currentLocation)
+#         user = users.get_current_user()
+#         sortType = self.request.get('sort_selection')
+#         print "sortType: " + sortType
+#         if sortType == "distance" or sortType == "sort-by":
+#             sortbyDuration(restaurants_out)
+#         elif sortType == "rating":
+#             sortbyRating(restaurants_out)
+#
+#         data = {
+#             'user': user,
+#             'login_url': users.create_login_url(self.request.uri),
+#             'logout_url': users.create_logout_url(self.request.uri),
+#             "restaurants": restaurants_out,
+#             "api_key": googleapikey.GOOGLE_API_KEY
+#         }
+#
+#         self.response.write(content.render(data))
+#
 
 
 def filterRestaurants(user_food_types,lat,long):
@@ -345,11 +371,9 @@ def filterRestaurants(user_food_types,lat,long):
             for type in user_food_types:
                 type = type[0:-1]
                 if type == categories[cat_num]['title']:
-                    print "INCLUDED: " + type
                     include = True
         if include == True:
             restaurants_out.append(restaurants["businesses"][num])
-            print restaurants["businesses"][num]['name']
 
     return restaurants_out
 
@@ -358,9 +382,9 @@ def getDistances(restaurantsList, currentLocation):
         distMatrix = get_dist_matrix(currentLocation,restaurant)
         restaurant["distance"] = distMatrix['rows'][0]['elements'][0]['distance']['text']
         restaurant["duration"] = distMatrix['rows'][0]['elements'][0]['duration']['text']
-        print restaurant['name']
-        print restaurant['distance']
-        print restaurant['duration']
+        # print restaurant['name']
+        # print restaurant['distance']
+        # print restaurant['duration']
     return restaurantsList
 
 # def get_current_location():
@@ -400,7 +424,22 @@ def sortbyDuration(restaurantsList):
 
             else:
                 j+=1
+    return restaurantsList
+def sortbyRating(restaurantsList):
+    for restaurant in restaurantsList:
+        rating = restaurant['rating']
+        print restaurant['name'] + ' , ' + str(rating)
+    for num in range(len(restaurantsList)-1):
+        j = num + 1
+        while j < len(restaurantsList):
+            if restaurantsList[num]['rating'] < restaurantsList[j]['rating']:
+                temp = restaurantsList[num]
+                restaurantsList[num] = restaurantsList[j]
+                restaurantsList[j] = temp
 
+            else:
+                j+=1
+    return restaurantsList
 
 def get_interests_list():
    existing_interests = Interest.query(ancestor = root_parent()).fetch()
@@ -437,5 +476,5 @@ app = webapp2.WSGIApplication([
     # ('/maps', MapsPage),
     ('/DeleteInterests', DeleteInterests),
     ('/favorites', FavoritesPage),
-    ('/location', getCurrentLocation)
+    # ('/location', getCurrentLocation)
 ], debug=True)

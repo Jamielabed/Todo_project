@@ -9,9 +9,68 @@
     <script type="text/javascript">
     const GOOGLE_API_KEY = "{{api_key}}"
     </script>
-    <script type="text/javascript" src="/js/location.js"></script>
+    {% if lat and long  %}
+    <div id="restaurants_info">
+      {% if user %}
+       <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2>
+       <br>
+       <form onsubmit="includeSortBy({{lat}}, {{long}})">
+         <select id="sort_selection">
+           <option value="sort-by">Sort By</option>
+           <option value="distance">Distance</option>
+           <option value="rating">Rating</option>
+           <option value="food type">Food Type</option>
+          </select>
+          <input type="submit" name="" value="Submit">
+        </form>
+        <br>
+       <!--if food preferences != NONE -->
 
-    <div id="restaurants_info"></div>
 
+
+       <div class="flex-container">
+         <table id="restaurants-table">
+           {%for restaurant in restaurants%}
+           {% if restaurants.index(restaurant) % 6 == 0%}
+            <tr>
+           {%endif%}
+           <td>
+           <a href = "{{restaurant['url']}}"target="_blank">
+             <div class="restaurant">
+               <p class = "restaurant-head">{{restaurant['name']}}</p>
+               <div class = "rest-info-div">
+                 <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}
+                   <br>Drive Time: {{restaurant["duration"]}}
+                   <br>Type of Food: {{restaurant["categories"][0]["title"]}}
+
+                 </p>
+               </div>
+             </div>
+             </a>
+            <button type="button" class = "add_restaurant">Click to Favorite Me!</button>
+
+
+           </td>
+           {% if restaurants.index(restaurant) % 6 == 5%}
+            </tr>
+           {%endif%}
+        <!-- <button type="button">Click Me!</button> -->
+           {%endfor%}
+          </table>
+        </div>
+
+      <br>
+       <a href="{{logout_url}}">Logout</a>
+       {% else %}
+      <h1>No user!</h1>
+       <a href="{{login_url}}">Login</a>
+      {% endif %}
+    </div>
+    <script type="text/javascript" src="/js/main.js"></script>
+
+    {%else%}
+    <script type="text/javascript" src="/js/getlocation.js"></script>
+
+    {%endif%}
   </body>
 </html>

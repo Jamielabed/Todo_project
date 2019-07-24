@@ -14,6 +14,16 @@
       {% if user %}
        <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2>
        <br>
+       <form method="get">
+         <select name="sort_selection">
+           <option value="sort-by">Sort By</option>
+           <option value="distance">Distance</option>
+           <option value="rating">Rating</option>
+           <option value="food type">Food Type</option>
+          </select>
+          <input type="submit" name="" value="Submit">
+        </form>
+        <br>
        <!--if food preferences != NONE -->
 
 
