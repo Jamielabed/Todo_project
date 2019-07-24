@@ -3,6 +3,12 @@ body {
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  color: black;
+  color: white;
   font-size: 20px;
+
+}
+#container{
+  width: 50%;
+  margin-left: 500px;
+  /* margin:auto; */
 }
