@@ -23,7 +23,15 @@ a:hover {
 
 .restaurant-head {
   display: inline-block;
-  vertical-align: -100px;
+
+
+}
+
+.rest-info {
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: text-bottom;
+
 }
 
 .flex-container > div:hover {
