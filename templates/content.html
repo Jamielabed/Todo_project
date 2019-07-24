@@ -13,23 +13,37 @@
     <div id="restaurants_info">
       {% if user %}
        <h2>User is {{user.email()}}<span id="favorites"> Favorites</span></h2>
+       <br>
        <!--if food preferences != NONE -->
 
 
-       <div class="box1">
+
        <div class="flex-container">
        {%for restaurant in restaurants%}
-        <div class="restaurant">{{restaurant['name']}}</div>
+       {% if restaurants.index(restaurant) % 6 == 0%}
+       hello
+       {%endif%}
+        <a href = "{{restaurant['url']}}""target="_blank">
+          <div class="restaurant">
+            <p class = "restaurant-head">{{restaurant['name']}}</p>
+            <div class = "rest-info-div">
+              <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}<br>Drive Time: {{restaurant["duration"]}}</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- <button type="button">Click Me!</button> -->
+
         {%endfor%}
         </div>
-      </div>
 
+`      <!--`
       <div class="flex-container">
         {%for restaurant in restaurants%}
-         <div class="restaurant">{{restaurant['duration']}}</div>
+         <div class="restaurant"><p class = "restaurant-head">{{restaurant['duration']}}</p></div>
         {%endfor%}
       </div>
-
+    ``-->
        <!--
        {% for each_restaurant in restaurants_five_to_ten %}
        {%endfor%}

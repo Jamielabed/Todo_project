@@ -19,9 +19,13 @@ def root_parent():
 
     return ndb.Key('Parent', 'default_parent')
 
-
+# database for FOOD TYPES
 class Interest(ndb.Model):
     interests = ndb.StringProperty()
+
+# database for RESTURANTS
+class RestaurantInterest(ndb.Model):
+    rest_int = ndb.StringProperty()
 
 def get_restaurant_info(lat,long):
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
@@ -38,10 +42,29 @@ def get_restaurant_info(lat,long):
     return result
 
 
+def get_interests_list():
+    existing_interests = Interest.query(ancestor = root_parent()).fetch()
+    interests_list = []
+    for interest in existing_interests:
+        interests_list.append(interest.interests)
+    return interests_list
+
+
+# this will be the insterest list for RESTURANTS
+def get_restaurant_list():
+    current_interests = rest_int.query(ancestor = root_parent()).fetch()
+    RestaurantInterests_list = []
+    for rest_int in RestaurantInterests_list:
+        RestaurantInterests_list.append(rest_int.rest_int)
+    return RestaurantInterests_list
+
+
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         template = JINJA_ENV.get_template('templates/main.html')
+
         data = {
                  'user': user,
                  'login_url': users.create_login_url('/AddInterest'),
@@ -51,7 +74,8 @@ class MainPage(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
 
-possible_interests =["Afghan", "African", "Senegalese", "Afghan ",
+
+possible_interests =["Afghan ",
 "African ",
 "Senegalese ",
 "South African ",
@@ -208,6 +232,8 @@ possible_interests =["Afghan", "African", "Senegalese", "Afghan ",
 "Vietnamese ",
 "Waffles ",
 "Wraps "]
+
+
 class AddInterestPage(webapp2.RequestHandler):
     def get(self):
 
@@ -221,7 +247,7 @@ class AddInterestPage(webapp2.RequestHandler):
 
 
     def post(self):
-        for i in range(1,len(possible_interests)+1):
+        for i in range(len(possible_interests)):
             added = self.request.get('new_interest'+str(i))
             if(added != ""):
                 #go throough all interests in the database
@@ -233,11 +259,10 @@ class AddInterestPage(webapp2.RequestHandler):
                 if(len(existing_interests) == 0):
                     new_interest.put()
 
+
         self.response.headers['Content-Type'] = 'text/html'
         self.redirect('/AddInterest')
-        print(new_interest)
-        print("this is a test line")
-        print(added)
+
 
 class DeleteInterests(webapp2.RequestHandler):
     def post(self):
@@ -389,7 +414,7 @@ def get_interests_list():
 # longitude = result['businesses'][num]['coordinates']['longitude']
 
 
-
+#this is the page where user favs are all on one page
 class FavoritesPage(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENV.get_template('templates/favorites.html')

@@ -3,6 +3,7 @@
   flex-wrap: nowrap;
   background-color: transparent;
   margin: auto;
+  vertical-align: text-bottom;
 }
 
 .restaurant {
@@ -10,6 +11,27 @@
   margin: 10px;
   text-align: center;
   font-size: 30px;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  background-color: gray;
+}
+
+.restaurant-head {
+  display: inline-block;
+
+
+}
+
+.rest-info {
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: text-bottom;
+
 }
 
 .flex-container > div:hover {
