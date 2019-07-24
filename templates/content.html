@@ -20,7 +20,17 @@
 
        <div class="flex-container">
        {%for restaurant in restaurants%}
-        <a href = "{{restaurant['url']}}"><div class="restaurant"><p class = "restaurant-head">{{restaurant['name']}}</p></div></a>
+       {% if restaurants.index(restaurant) % 6 == 0%}
+       hello
+       {%endif%}
+        <a href = "{{restaurant['url']}}">
+          <div class="restaurant">
+            <p class = "restaurant-head">{{restaurant['name']}}</p>
+            <div class = "rest-info-div">
+              <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}<br>Drive Time: {{restaurant["duration"]}}</p>
+            </div>
+          </div>
+        </a>
         {%endfor%}
         </div>
 
