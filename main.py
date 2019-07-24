@@ -34,7 +34,7 @@ def get_restaurant_info(lat,long):
         headers=headers).content
     result = json.loads(result_unformatted)
 
-    
+
     return result
 
 
@@ -235,9 +235,7 @@ class AddInterestPage(webapp2.RequestHandler):
 
         self.response.headers['Content-Type'] = 'text/html'
         self.redirect('/AddInterest')
-        print(new_interest)
-        print("this is a test line")
-        print(added)
+        
 
 class DeleteInterests(webapp2.RequestHandler):
     def post(self):
