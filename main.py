@@ -219,7 +219,7 @@ class AddInterestPage(webapp2.RequestHandler):
 
 
     def post(self):
-        for i in range(len(possible_interests)):
+        for i in range(1,len(possible_interests)+1):
             added = self.request.get('new_interest'+str(i))
             if(added != ""):
                 #go throough all interests in the database
