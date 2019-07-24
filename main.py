@@ -38,7 +38,7 @@ def get_restaurant_info(lat,long):
         headers=headers).content
     result = json.loads(result_unformatted)
 
-    
+
     return result
 
 # interest list for FOOD TYPES
@@ -50,12 +50,12 @@ def get_interests_list():
     return interests_list
 
 # this will be the insterest list for RESTURANTS
-def get_resturant_list():
+def get_restaurant_list():
     current_interests = rest_int.query(ancestor = root_parent()).fetch()
-    ResturantInterests_list = []
-    for rest_int in ResturantInterests_list:
-        ResturantInterests_list.append(rest_int.rest_int)
-    return ResturantInterests_list
+    RestaurantInterests_list = []
+    for rest_int in RestaurantInterests_list:
+        RestaurantInterests_list.append(rest_int.rest_int)
+    return RestaurantInterests_list
 
 
 class MainPage(webapp2.RequestHandler):
