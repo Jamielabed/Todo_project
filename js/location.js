@@ -34,21 +34,20 @@ function sendLocationToServer(lat,long) {
   //
   // })
 }
+
 function formatBoxes() {
   function boxWidth() {
     let x = screen.width
     let w = (x - 160)/8  + "px"
     let restaurants = document.querySelectorAll(".restaurant")
     for (restaurant of restaurants) {
+      console.log(restaurant.innerHTML)
       restaurant.style.width = w
       restaurant.style.height = w
     }
   }
   boxWidth()
 
-  function formatHeaders() {
-
-  }
   // redirect to favorites page
   favoritesBtn = document.querySelector("#favorites")
   favoritesBtn.addEventListener('click', ()=> {
