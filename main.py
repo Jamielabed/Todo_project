@@ -34,9 +34,11 @@ def get_restaurant_info(lat,long):
     result_unformatted = urlfetch.fetch(
         #payload = form_data,
         method=urlfetch.GET,
-        url = "https://api.yelp.com/v3/businesses/search?latitude="+str(lat)+"&longitude="+str(long),
+        url = "https://api.yelp.com/v3/businesses/search?latitude="+str(lat)+"&longitude="+str(long)+"&limit=50",
         headers=headers).content
     result = json.loads(result_unformatted)
+
+    
     return result
 
 # interest list for FOOD TYPES
@@ -63,7 +65,7 @@ class MainPage(webapp2.RequestHandler):
 
         data = {
                  'user': user,
-                 'login_url': users.create_login_url(self.request.uri),
+                 'login_url': users.create_login_url('/AddInterest'),
                  'logout_url': users.create_logout_url(self.request.uri),
                  "api_key": googleapikey.GOOGLE_API_KEY
                 }

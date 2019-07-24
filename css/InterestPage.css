@@ -1,10 +1,11 @@
 body {
-  background-image: url("http://arteagas.com/wp-content/uploads/2017/11/Arteagas-Mexican-Grocery-Store-Background.jpg");
+  /*background-image: url("https://cdn2.vectorstock.com/i/1000x1000/38/36/collection-neon-signs-food-set-logos-in-neon-vector-20433836.jpg"); */
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  color: white;
+  color: black;
   font-size: 20px;
+  font-family: 'Fascinate', cursive;
 
 }
 #container{
@@ -12,7 +13,7 @@ body {
   margin-left: 500px;
   /* margin:auto; */
 }
-ul { 
+ul {
   columns: 3;
   -webkit-columns: 3;
   -moz-columns: 3;
