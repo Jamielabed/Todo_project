@@ -7,8 +7,11 @@ handlers:
   static_dir: css
 - url: /js
   static_dir: js
+- url: /static
+  static_dir: static
 - url: /.*
   script: main.app
+
 
 libraries:
 
