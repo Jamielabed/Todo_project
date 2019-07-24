@@ -317,8 +317,7 @@ class getCurrentLocation(webapp2.RequestHandler):
         currentLocation = [latitude, longitude]
         content = JINJA_ENV.get_template('templates/content.html')
         food_types = get_interests_list()
-        # REMOVE WHEN FOOD TYPES INPUT = WORKING
-        food_types = ["Pizza", "Italian"]
+        print food_types
         # returns restaurants that match user preferences
         restaurants_out = filterRestaurants(food_types,latitude,longitude)
         # adds distance and duration attributes and returns restaurants_out
@@ -345,9 +344,12 @@ def filterRestaurants(user_food_types,lat,long):
         for cat_num in range(len(categories)):
             for type in user_food_types:
                 if type == categories[cat_num]['title']:
+                    print "INCLUDED: " + type
                     include = True
         if include == True:
             restaurants_out.append(restaurants["businesses"][num])
+            print restaurants["businesses"][num]['name']
+
     return restaurants_out
 
 def getDistances(restaurantsList, currentLocation):

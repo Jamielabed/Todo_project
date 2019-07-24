@@ -19,36 +19,41 @@
 
 
        <div class="flex-container">
-       {%for restaurant in restaurants%}
-       {% if restaurants.index(restaurant) % 6 == 0%}
-       hello
-       {%endif%}
-        <a href = "{{restaurant['url']}}""target="_blank">
-          <div class="restaurant">
-            <p class = "restaurant-head">{{restaurant['name']}}</p>
-            <div class = "rest-info-div">
-              <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}<br>Drive Time: {{restaurant["duration"]}}</p>
-            </div>
-          </div>
-        </a>
-
+         <table id="restaurants-table">
+           {%for restaurant in restaurants%}
+           {% if restaurants.index(restaurant) % 6 == 0%}
+            <tr>
+           {%endif%}
+           <td>
+           <a href = "{{restaurant['url']}}""target="_blank">
+             <div class="restaurant">
+               <p class = "restaurant-head">{{restaurant['name']}}</p>
+               <div class = "rest-info-div">
+                 <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}<br>Drive Time: {{restaurant["duration"]}}</p>
+               </div>
+             </div>
+           </a>
+           </td>
+           {% if restaurants.index(restaurant) % 6 == 5%}
+            </tr>
+           {%endif%}
         <!-- <button type="button">Click Me!</button> -->
-
-        {%endfor%}
+           {%endfor%}
+          </table>
         </div>
 
-`      <!--`
+      <!--`
       <div class="flex-container">
         {%for restaurant in restaurants%}
          <div class="restaurant"><p class = "restaurant-head">{{restaurant['duration']}}</p></div>
         {%endfor%}
       </div>
-    ``-->
+    -->
        <!--
        {% for each_restaurant in restaurants_five_to_ten %}
        {%endfor%}
       -->
-       <br>
+      <br>
        <a href="{{logout_url}}">Logout</a>
        {% else %}
       <h1>No user!</h1>
