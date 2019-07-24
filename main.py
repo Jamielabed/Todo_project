@@ -19,9 +19,13 @@ def root_parent():
 
     return ndb.Key('Parent', 'default_parent')
 
-
+# database for FOOD TYPES
 class Interest(ndb.Model):
     interests = ndb.StringProperty()
+
+# database for RESTURANTS
+class RestaurantInterest(ndb.Model):
+    rest_int = ndb.StringProperty()
 
 def get_restaurant_info(lat,long):
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
@@ -37,177 +41,194 @@ def get_restaurant_info(lat,long):
 
     return result
 
+# interest list for FOOD TYPES
+def get_interests_list():
+    existing_interests = Interest.query(ancestor = root_parent()).fetch()
+    interests_list = []
+    for interest in existing_interests:
+        interests_list.append(interest.interests)
+    return interests_list
+
+# this will be the insterest list for RESTURANTS
+def get_resturant_list():
+    current_interests = rest_int.query(ancestor = root_parent()).fetch()
+    ResturantInterests_list = []
+    for rest_int in ResturantInterests_list:
+        ResturantInterests_list.append(rest_int.rest_int)
+    return ResturantInterests_list
+
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         template = JINJA_ENV.get_template('templates/main.html')
+
         data = {
                  'user': user,
-                 'login_url': users.create_login_url(self.request.uri),
+                 'login_url': users.create_login_url('/AddInterest'),
                  'logout_url': users.create_logout_url(self.request.uri),
                  "api_key": googleapikey.GOOGLE_API_KEY
                 }
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
 
-possible_interests =["Afghan", "African", "Senegalese", "Afghan ",
-"African ",
-"Senegalese ",
-"South African ",
-"American (New) ",
-"American  ",
-"Arabian ",
-"Argentine ",
-"Armenian ",
-"Asian Fusion ",
-"Australian ",
-"Austrian ",
-"Bangladeshi ",
-"Barbeque ",
-"Basque ",
-"Belgian ",
-"Brasseries ",
-"Brazilian ",
-"Breakfast & Brunch ",
-"Pancakes ",
-"British ",
-"Buffets ",
-"Bulgarian ",
-"Burgers ",
-"Burmese ",
-"Cafes ",
-"Themed Cafes ",
-"Cafeteria ",
-"Cajun/Creole ",
-"Cambodian ",
-"Caribbean ",
-"Dominican ",
-"Haitian ",
-"Puerto Rican ",
-"Trinidadian ",
-"Catalan ",
-"Cheesesteaks ",
-"Chicken Shop ",
-"Chicken Wings ",
-"Chinese ",
-"Cantonese ",
-"Dim Sum ",
-"Hainan ",
-"Shanghainese ",
-"Szechuan ",
-"Comfort Food ",
-"Creperies ",
-"Cuban ",
-"Czech ",
-"Delis ",
-"Diners ",
-"Dinner Theater ",
-"Eritrean ",
-"Ethiopian ",
-"Fast Food ",
-"Filipino ",
-"Fish & Chips ",
-"Fondue ",
-"Food Court ",
-"Food Stands ",
-"French ",
-"Mauritius ",
-"Reunion ",
-"Game Meat ",
-"Gastropubs ",
-"Georgian ",
-"German ",
-"Gluten-Free ",
-"Greek ",
-"Guamanian ",
-"Halal ",
-"Hawaiian ",
-"Himalayan/Nepalese ",
-"Honduran ",
-"Hong Kong Style Cafe ",
-"Hot Dogs ",
-"Hot Pot ",
-"Hungarian ",
-"Iberian ",
-"Indian ",
-"Indonesian ",
-"Irish ",
-"Italian ",
-"Calabrian ",
-"Sardinian ",
-"Sicilian ",
-"Tuscan ",
-"Japanese ",
-"Conveyor Belt Sushi ",
-"Izakaya ",
-"Japanese Curry ",
-"Ramen ",
-"Teppanyaki ",
-"Kebab ",
-"Korean ",
-"Kosher ",
-"Laotian ",
-"Latin American ",
-"Colombian ",
-"Salvadoran ",
-"Venezuelan ",
-"Live/Raw Food ",
-"Malaysian ",
-"Mediterranean ",
-"Falafel ",
-"Mexican ",
-"Tacos ",
-"Middle Eastern ",
-"Egyptian ",
-"Lebanese ",
-"Modern European ",
-"Mongolian ",
-"Moroccan ",
-"New Mexican Cuisine ",
-"Nicaraguan ",
-"Noodles ",
-"Pakistani ",
-"Pan Asian ",
-"Persian/Iranian ",
-"Peruvian ",
-"Pizza ",
-"Polish ",
-"Polynesian ",
-"Pop-Up Restaurants ",
-"Portuguese ",
-"Poutineries ",
-"Russian ",
-"Salad ",
-"Sandwiches ",
-"Scandinavian ",
-"Scottish ",
-"Seafood ",
-"Singaporean ",
-"Slovakian ",
-"Somali ",
-"Soul Food ",
-"Soup ",
-"Southern ",
-"Spanish ",
-"Sri Lankan ",
-"Steakhouses ",
-"Supper Clubs ",
-"Sushi Bars ",
-"Syrian ",
-"Taiwanese ",
-"Tapas Bars ",
-"Tapas/Small Plates ",
-"Tex-Mex ",
-"Thai ",
-"Turkish ",
-"Ukrainian ",
-"Uzbek ",
-"Vegan ",
-"Vegetarian ",
-"Vietnamese ",
-"Waffles ",
-"Wraps "]
+possible_interests =["Afghan", "African", "Senegalese", "Afghan (afghani)",
+"African (african)",
+"Senegalese (senegalese)",
+"South African (southafrican)",
+"American (New) (newamerican)",
+"American (Traditional) (tradamerican)",
+"Arabian (arabian)",
+"Argentine (argentine)",
+"Armenian (armenian)",
+"Asian Fusion (asianfusion)",
+"Australian (australian)",
+"Austrian (austrian)",
+"Bangladeshi (bangladeshi)",
+"Barbeque (bbq)",
+"Basque (basque)",
+"Belgian (belgian)",
+"Brasseries (brasseries)",
+"Brazilian (brazilian)",
+"Breakfast & Brunch (breakfast_brunch)",
+"Pancakes (pancakes)",
+"British (british)",
+"Buffets (buffets)",
+"Bulgarian (bulgarian)",
+"Burgers (burgers)",
+"Burmese (burmese)",
+"Cafes (cafes)",
+"Themed Cafes (themedcafes)",
+"Cafeteria (cafeteria)",
+"Cajun/Creole (cajun)",
+"Cambodian (cambodian)",
+"Caribbean (caribbean)",
+"Dominican (dominican)",
+"Haitian (haitian)",
+"Puerto Rican (puertorican)",
+"Trinidadian (trinidadian)",
+"Catalan (catalan)",
+"Cheesesteaks (cheesesteaks)",
+"Chicken Shop (chickenshop)",
+"Chicken Wings (chicken_wings)",
+"Chinese (chinese)",
+"Cantonese (cantonese)",
+"Dim Sum (dimsum)",
+"Hainan (hainan)",
+"Shanghainese (shanghainese)",
+"Szechuan (szechuan)",
+"Comfort Food (comfortfood)",
+"Creperies (creperies)",
+"Cuban (cuban)",
+"Czech (czech)",
+"Delis (delis)",
+"Diners (diners)",
+"Dinner Theater (dinnertheater)",
+"Eritrean (eritrean)",
+"Ethiopian (ethiopian)",
+"Fast Food (hotdogs)",
+"Filipino (filipino)",
+"Fish & Chips (fishnchips)",
+"Fondue (fondue)",
+"Food Court (food_court)",
+"Food Stands (foodstands)",
+"French (french)",
+"Mauritius (mauritius)",
+"Reunion (reunion)",
+"Game Meat (gamemeat)",
+"Gastropubs (gastropubs)",
+"Georgian (georgian)",
+"German (german)",
+"Gluten-Free (gluten_free)",
+"Greek (greek)",
+"Guamanian (guamanian)",
+"Halal (halal)",
+"Hawaiian (hawaiian)",
+"Himalayan/Nepalese (himalayan)",
+"Honduran (honduran)",
+"Hong Kong Style Cafe (hkcafe)",
+"Hot Dogs (hotdog)",
+"Hot Pot (hotpot)",
+"Hungarian (hungarian)",
+"Iberian (iberian)",
+"Indian (indpak)",
+"Indonesian (indonesian)",
+"Irish (irish)",
+"Italian (italian)",
+"Calabrian (calabrian)",
+"Sardinian (sardinian)",
+"Sicilian (sicilian)",
+"Tuscan (tuscan)",
+"Japanese (japanese)",
+"Conveyor Belt Sushi (conveyorsushi)",
+"Izakaya (izakaya)",
+"Japanese Curry (japacurry)",
+"Ramen (ramen)",
+"Teppanyaki (teppanyaki)",
+"Kebab (kebab)",
+"Korean (korean)",
+"Kosher (kosher)",
+"Laotian (laotian)",
+"Latin American (latin)",
+"Colombian (colombian)",
+"Salvadoran (salvadoran)",
+"Venezuelan (venezuelan)",
+"Live/Raw Food (raw_food)",
+"Malaysian (malaysian)",
+"Mediterranean (mediterranean)",
+"Falafel (falafel)",
+"Mexican (mexican)",
+"Tacos (tacos)",
+"Middle Eastern (mideastern)",
+"Egyptian (egyptian)",
+"Lebanese (lebanese)",
+"Modern European (modern_european)",
+"Mongolian (mongolian)",
+"Moroccan (moroccan)",
+"New Mexican Cuisine (newmexican)",
+"Nicaraguan (nicaraguan)",
+"Noodles (noodles)",
+"Pakistani (pakistani)",
+"Pan Asian (panasian)",
+"Persian/Iranian (persian)",
+"Peruvian (peruvian)",
+"Pizza (pizza)",
+"Polish (polish)",
+"Polynesian (polynesian)",
+"Pop-Up Restaurants (popuprestaurants)",
+"Portuguese (portuguese)",
+"Poutineries (poutineries)",
+"Russian (russian)",
+"Salad (salad)",
+"Sandwiches (sandwiches)",
+"Scandinavian (scandinavian)",
+"Scottish (scottish)",
+"Seafood (seafood)",
+"Singaporean (singaporean)",
+"Slovakian (slovakian)",
+"Somali (somali)",
+"Soul Food (soulfood)",
+"Soup (soup)",
+"Southern (southern)",
+"Spanish (spanish)",
+"Sri Lankan (srilankan)",
+"Steakhouses (steak)",
+"Supper Clubs (supperclubs)",
+"Sushi Bars (sushi)",
+"Syrian (syrian)",
+"Taiwanese (taiwanese)",
+"Tapas Bars (tapas)",
+"Tapas/Small Plates (tapasmallplates)",
+"Tex-Mex (tex-mex)",
+"Thai (thai)",
+"Turkish (turkish)",
+"Ukrainian (ukrainian)",
+"Uzbek (uzbek)",
+"Vegan (vegan)",
+"Vegetarian (vegetarian)",
+"Vietnamese (vietnamese)",
+"Waffles (waffles)",
+"Wraps (wraps)"]
 class AddInterestPage(webapp2.RequestHandler):
     def get(self):
 
@@ -221,7 +242,7 @@ class AddInterestPage(webapp2.RequestHandler):
 
 
     def post(self):
-        for i in range(1,len(possible_interests)+1):
+        for i in range(len(possible_interests)):
             added = self.request.get('new_interest'+str(i))
             if(added != ""):
                 #go throough all interests in the database
@@ -232,6 +253,7 @@ class AddInterestPage(webapp2.RequestHandler):
                 existing_interests = Interest.query(Interest.interests == added, ancestor = root_parent()).fetch()
                 if(len(existing_interests) == 0):
                     new_interest.put()
+
 
         self.response.headers['Content-Type'] = 'text/html'
         self.redirect('/AddInterest')
@@ -379,12 +401,19 @@ def sortbyDuration(restaurantsList):
 # longitude = result['businesses'][num]['coordinates']['longitude']
 
 
-
+#this is the page where user favs are all on one page
 class FavoritesPage(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENV.get_template('templates/favorites.html')
         self.response.headers['Content-Type'] = 'text/html'
-        self.response.write(template.render())
+        food_types = get_interests_list()
+        # fav_resturants will be set to the selected favs from the user
+        #fav_resturants = get_resturant_list()
+        data = {
+            "food_types": food_types,
+            #"fav_resturants": fav_resturants
+        }
+        self.response.write(template.render(data))
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
