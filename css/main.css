@@ -18,7 +18,10 @@ a {
 }
 
 td:hover {
-  background-color: gray;
+  background-color: lightgray;
+}
+td:hover .rest-info{
+  color:dimgray;
 }
 
 .restaurant-head {
@@ -28,6 +31,7 @@ td:hover {
 }
 
 .rest-info {
+  color: transparent;
   font-size: 15px;
   display: inline-block;
   vertical-align: text-bottom;
