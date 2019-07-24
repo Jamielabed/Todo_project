@@ -50,7 +50,7 @@ def get_interests_list():
     return interests_list
 
 # this will be the insterest list for RESTURANTS
-def get_resturant_list():
+def get_restaurant_list():
     current_interests = rest_int.query(ancestor = root_parent()).fetch()
     ResturantInterests_list = []
     for rest_int in ResturantInterests_list:
@@ -257,7 +257,7 @@ class AddInterestPage(webapp2.RequestHandler):
 
         self.response.headers['Content-Type'] = 'text/html'
         self.redirect('/AddInterest')
-        
+
 
 class DeleteInterests(webapp2.RequestHandler):
     def post(self):
