@@ -229,7 +229,7 @@ class AddInterestPage(webapp2.RequestHandler):
                 new_interest.interests = added
                 existing_interests = Interest.query(Interest.interests == added, ancestor = root_parent()).fetch()
                 if(len(existing_interests) == 0):
-                    new_interest.pu
+                    new_interest.put()
 
         self.response.headers['Content-Type'] = 'text/html'
         self.redirect('/AddInterest')
