@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/js/location.js"></script>
     <div id="restaurants_info">
       {% if user %}
-       <h2>User is {{user.email()}}<span id="favorites"> Favorites</span></h2>
+       <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2>
        <br>
        <!--if food preferences != NONE -->
 
@@ -32,6 +32,9 @@
                  <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}<br>Drive Time: {{restaurant["duration"]}}</p>
                </div>
              </div>
+
+            <button type="button" class = "add_restaurant">Click to Favorite Me!</button>
+
            </a>
            </td>
            {% if restaurants.index(restaurant) % 6 == 5%}
@@ -41,6 +44,7 @@
            {%endfor%}
           </table>
         </div>
+
 
       <!--`
       <div class="flex-container">
