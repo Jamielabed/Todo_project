@@ -30,9 +30,11 @@ def get_restaurant_info(lat,long):
     result_unformatted = urlfetch.fetch(
         #payload = form_data,
         method=urlfetch.GET,
-        url = "https://api.yelp.com/v3/businesses/search?latitude="+str(lat)+"&longitude="+str(long),
+        url = "https://api.yelp.com/v3/businesses/search?latitude="+str(lat)+"&longitude="+str(long)+"&limit=50",
         headers=headers).content
     result = json.loads(result_unformatted)
+
+    
     return result
 
 
