@@ -19,14 +19,14 @@
        <div class="box1">
        <div class="flex-container">
        {%for restaurant in restaurants%}
-        <div class="restaurant">{{restaurant['name']}}</div>
+        <div class="restaurant"><p class = "restaurant-head">{{restaurant['name']}}</p></div>
         {%endfor%}
         </div>
       </div>
 
       <div class="flex-container">
         {%for restaurant in restaurants%}
-         <div class="restaurant">{{restaurant['duration']}}</div>
+         <div class="restaurant"><p class = "restaurant-head">{{restaurant['duration']}}</p></div>
         {%endfor%}
       </div>
 

@@ -34,6 +34,7 @@ function sendLocationToServer(lat,long) {
   //
   // })
 }
+
 function formatBoxes() {
   function boxWidth() {
     let x = screen.width
@@ -46,9 +47,14 @@ function formatBoxes() {
   }
   boxWidth()
 
-  function formatHeaders() {
 
-  }
+restaurants.addEventListener('mouseon', ()=> {
+  restaurants.innerHTML = "GO"
+})
+
+
+
+
   // redirect to favorites page
   favoritesBtn = document.querySelector("#favorites")
   favoritesBtn.addEventListener('click', ()=> {
