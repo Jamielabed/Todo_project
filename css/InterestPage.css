@@ -16,6 +16,5 @@ body {
 }
 ul {
   columns: 3;
-  -webkit-columns: 3;
-  -moz-columns: 3;
+  column-gap: 35px;
 }
