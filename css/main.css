@@ -17,7 +17,7 @@
 }
 
 #favorites {
-  text-align: right;
+  float: right;
   margin: 10px;
 }
 
