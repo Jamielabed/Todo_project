@@ -20,7 +20,8 @@
 
        <div class="flex-container">
        {%for restaurant in restaurants%}
-        <a href = "{{restaurant['url']}}"><div class="restaurant"><p class = "restaurant-head">{{restaurant['name']}}</p></div></a>
+        <a href = "{{restaurant['url']}}"target="_blank"><div class="restaurant"><p class = "restaurant-head">{{restaurant['name']}}</p></div></a>
+        <!-- <button type="button">Click Me!</button> -->
         {%endfor%}
         </div>
 
