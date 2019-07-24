@@ -23,7 +23,7 @@
        {% if restaurants.index(restaurant) % 6 == 0%}
        hello
        {%endif%}
-        <a href = "{{restaurant['url']}}">
+        <a href = "{{restaurant['url']}}""target="_blank">
           <div class="restaurant">
             <p class = "restaurant-head">{{restaurant['name']}}</p>
             <div class = "rest-info-div">
@@ -31,6 +31,9 @@
             </div>
           </div>
         </a>
+
+        <!-- <button type="button">Click Me!</button> -->
+
         {%endfor%}
         </div>
 
