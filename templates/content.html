@@ -29,13 +29,17 @@
              <div class="restaurant">
                <p class = "restaurant-head">{{restaurant['name']}}</p>
                <div class = "rest-info-div">
-                 <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}<br>Drive Time: {{restaurant["duration"]}}</p>
+                 <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}
+                   <br>Drive Time: {{restaurant["duration"]}}
+                   <br>Type of Food: {{restaurant["categories"][0]["title"]}}
+
+                 </p>
                </div>
              </div>
-
+             </a>
             <button type="button" class = "add_restaurant">Click to Favorite Me!</button>
 
-           </a>
+
            </td>
            {% if restaurants.index(restaurant) % 6 == 5%}
             </tr>
