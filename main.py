@@ -343,6 +343,7 @@ def filterRestaurants(user_food_types,lat,long):
         include = False
         for cat_num in range(len(categories)):
             for type in user_food_types:
+                type = type[0:-1]
                 if type == categories[cat_num]['title']:
                     print "INCLUDED: " + type
                     include = True
