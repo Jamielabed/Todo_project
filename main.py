@@ -401,6 +401,14 @@ def sortbyDuration(restaurantsList):
                 j+=1
 
 
+def get_interests_list():
+   existing_interests = Interest.query(ancestor = root_parent()).fetch()
+   interests_list = []
+   for interest in existing_interests:
+       interests_list.append(interest.interests)
+   return interests_list
+
+
 
 # name = result['businesses'][num]['name']
 # categories = result['businesses'][num]['categories'][cat_num]['title']
@@ -413,13 +421,12 @@ class FavoritesPage(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENV.get_template('templates/favorites.html')
         self.response.headers['Content-Type'] = 'text/html'
-        food_types = get_interests_list()
-        # fav_resturants will be set to the selected favs from the user
-        #fav_resturants = get_resturant_list()
-        data = {
-            "food_types": food_types,
-            #"fav_resturants": fav_resturants
+        food_types=get_interests_list()
+        data={
+        "food_types":food_types,
+
         }
+
         self.response.write(template.render(data))
 
 app = webapp2.WSGIApplication([
