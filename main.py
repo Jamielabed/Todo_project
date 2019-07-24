@@ -34,7 +34,7 @@ def get_restaurant_info(lat,long):
         headers=headers).content
     result = json.loads(result_unformatted)
 
-    
+
     return result
 
 
@@ -374,6 +374,14 @@ def sortbyDuration(restaurantsList):
                 j+=1
 
 
+def get_interests_list():
+   existing_interests = Interest.query(ancestor = root_parent()).fetch()
+   interests_list = []
+   for interest in existing_interests:
+       interests_list.append(interest.interests)
+   return interests_list
+
+
 
 # name = result['businesses'][num]['name']
 # categories = result['businesses'][num]['categories'][cat_num]['title']
@@ -386,7 +394,13 @@ class FavoritesPage(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENV.get_template('templates/favorites.html')
         self.response.headers['Content-Type'] = 'text/html'
-        self.response.write(template.render())
+        food_types=get_interests_list()
+        data={
+        "food_types":food_types,
+
+        }
+
+        self.response.write(template.render(data))
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
