@@ -12,3 +12,8 @@ body {
   margin-left: 500px;
   /* margin:auto; */
 }
+ul { 
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
