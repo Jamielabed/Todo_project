@@ -164,7 +164,7 @@ ul {
           <tr>
             <th>Added Interests</th>
           </tr>
-          {% for d in interests %}
+          {% for d in Interests %}
           <tr>
             <td>{{d.interests}}</td>
             <td><input type="checkbox" name="to_delete" value="{{d.key.urlsafe()}}"></td>
