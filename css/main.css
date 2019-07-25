@@ -23,6 +23,15 @@ body {
   font-size: 30px;
 }
 
+h1 {
+  color: #edf1f2
+}
+
+h2 {
+  color: #edf1f2;
+  font-weight: lighter;
+}
+
 a {
   color: black;
 }
