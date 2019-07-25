@@ -119,7 +119,8 @@ class MainPage(webapp2.RequestHandler):
                  "restaurants": restaurants_out,
                  "sort_selection":sortType,
                  "food_types": food_types_return,
-                 "filter_selection": filterSelection
+                 "filter_selection": filterSelection,
+
                 }
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))

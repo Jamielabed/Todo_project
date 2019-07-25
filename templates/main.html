@@ -5,15 +5,20 @@
     <title>Restaurants</title>
     <link rel="stylesheet" href="/css/main.css">
 
+
     <button id = "interests-btn" class="buttonhover">Interests Page</button>
 
     <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
+
 
   </head>
   <body>
     <script type="text/javascript">
     const GOOGLE_API_KEY = "{{api_key}}"
     </script>
+    {% if user %}
+    <h1> Find Restaurants near you! </h1>
+    {% endif %}
 
     {% if lat and long  %}
     <div id="restaurants_info">
