@@ -2,7 +2,8 @@
   display:grid;
   grid-template-columns: 1fr 1fr;
   outline-style: solid;
-  outline-width: thin;
+  outline-width: thick;
+  outline-color: #916562;
   /* border */
   box-sizing: border-box;
   margin: auto;
@@ -16,7 +17,7 @@
 }
 
 .button {
-  background-color: white;
+  background-color: #f0f5f7;
   border: none;
   color: #5e5e5e;
   padding: 20px;
@@ -36,14 +37,14 @@
 }
 
 .button:hover {
-  background-color: #5e5e5e;
+  background-color: #6D7A82;
   color: white;
 }
 
 h1 {
-font-family: 'Hind Guntur', sans-serif;
+  font-family: 'Darker Grotesque', sans-serif;
   font-size: 55px;
-  font-style: normal;
+font-weight: lighter;
   transition: all 0.3s ease-in;
   text-decoration:none;
 }
@@ -54,14 +55,15 @@ li {
 
 h1:hover{
     -webkit-stroke-width: 5.3px;
-      -webkit-stroke-color: #FFFFFF;
-      -webkit-fill-color: #FFFFFF;
-      text-shadow: 1px 0px 20px #fffb1c;
+      -webkit-stroke-color: #6D7A82;
+      -webkit-fill-color: #6D7A82;
+      text-shadow: 1px 0px 20px #6D7A82;
 }
 
 h2 {
   font-size: 35px;
 font-family: 'Hind Guntur', sans-serif;
+font-weight: lighter;
 }
 
 h3 {
@@ -71,12 +73,13 @@ h3 {
 body {
   /*background-image: url("https://i.chzbgr.com/full/5460623104/hB335E31B/");*/
   /* background-image: url("https://cdn.hipwallpaper.com/i/6/60/J0HGDL.jpg"); */
+  background-color: #f0f5f7;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: black;
   font-size: 20px;
-  font-family: 'Hind Guntur', sans-serif;
+  font-family: 'Darker Grotesque', sans-serif;
   height: 200px;
   /*background-color: red; /* For browsers that do not support gradients */
 
