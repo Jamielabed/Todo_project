@@ -17,8 +17,8 @@ function getClientLocation(url = "https://www.googleapis.com/geolocation/v1/geol
     let longitude = myJson.location.lng
 
     console.log(myJson)
-    sendLocationToServer(latitude,longitude)
-
+    //sendLocationToServer(latitude,longitude)
+    window.location.href = `/?lat=${latitude}&long=${longitude}`
   })
 }
 function sendLocationToServer(lat,long) {
@@ -27,6 +27,7 @@ function sendLocationToServer(lat,long) {
   .then(function (myText) {
     document.querySelector('#restaurants_info').innerHTML = myText
     formatBoxes()
+
   })
   // .then(response => response.json())
   // .then(function (myJson){
@@ -35,25 +36,8 @@ function sendLocationToServer(lat,long) {
   // })
 }
 
-function formatBoxes() {
-  function boxWidth() {
-    let x = screen.width
-    let w = (x - 160)/6
-    let wpx = (x - 160)/6  + "px"
-    let total_width = 0
-    let restaurants = document.querySelectorAll(".restaurant")
-    for (restaurant of restaurants) {
-      console.log(restaurant.innerHTML)
-      restaurant.style.width = wpx
-      restaurant.style.height = wpx
-      total_width += (w+20)
-    }
-    console.log("TOTAL WIDTH: " + total_width)
-    console.log("SCREEN WIDTH: " + screen.width)
-  }
-  boxWidth()
 
-  redirect to favorites page
+  //redirect to favorites page
   favoritesBtn = document.querySelector("#favorites")
   favoritesBtn.addEventListener('click', ()=> {
     window.location.href = "/favorites";
@@ -66,4 +50,5 @@ function formatBoxes() {
 // let clientLocation = getClientLocation()
 // console.log(typeof clientLocation)
 // console.log(clientLocation.location)
+
 getClientLocation()
