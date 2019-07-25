@@ -23,13 +23,15 @@ function formatBoxes() {
 //   })
 //   console.log("IN JAVASCRIPT MAIN")
 // }
-}
+
 formatBoxes()
 
-
+let sortChoice = document.querySelector('#sort_selection')
 // sortChoice.addEventListener("submit", includeSortBy(latitude,longitude));
 //
 // function includeSortBy(lat,long) {
 //
 //   console.log("IN SORT BY FUNCTION")
 //   window.location.href = `/?lat=${latitude}&long=${longitude}&sort_selection=${sortChoice}`
+
+//}
