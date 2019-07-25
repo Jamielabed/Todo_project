@@ -293,7 +293,7 @@ class AddInterestPage(webapp2.RequestHandler):
 
         template = JINJA_ENV.get_template('templates/InterestPage.html')
         data = {
-            'Interests': Interest.query(ancestor=root_parent()).fetch(),
+            'Interests': Interest.query(Interest.user == users.get_current_user(), ancestor=root_parent()).fetch(),
             'Possible_Interests': possible_interests
         }
         self.response.headers['Content-Type'] = 'text/html'
