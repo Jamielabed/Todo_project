@@ -53,9 +53,9 @@ def get_interests_list():
 
 # this will be the insterest list for RESTURANTS
 def get_restaurant_list():
-    current_interests = rest_int.query(ancestor = root_parent()).fetch()
+    current_interests = RestaurantInterest.query(ancestor = root_parent()).fetch()
     RestaurantInterests_list = []
-    for rest_int in RestaurantInterests_list:
+    for rest_int in current_interests:
         RestaurantInterests_list.append(rest_int.rest_int)
     return RestaurantInterests_list
 
@@ -94,6 +94,8 @@ class MainPage(webapp2.RequestHandler):
                 }
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
+
+
 
 
 possible_interests =["Afghan ",
@@ -464,12 +466,26 @@ class FavoritesPage(webapp2.RequestHandler):
         template = JINJA_ENV.get_template('templates/favorites.html')
         self.response.headers['Content-Type'] = 'text/html'
         food_types=get_interests_list()
+        restaurant_favs = get_restaurant_list()
         data={
         "food_types":food_types,
+        "restaurant": restaurant_favs
 
         }
 
         self.response.write(template.render(data))
+
+class AddFavorite(webapp2.RequestHandler):
+    def post(self):
+        data = {
+            'RestaurantInterest': RestaurantInterest.query(ancestor=root_parent()).fetch(),
+            }
+        self.response.write(self.request.get("restaurantname"))
+        new_interest = RestaurantInterest(parent = root_parent())
+        new_interest.rest_int = self.request.get("restaurantname")
+
+        new_interest.put()
+        self.redirect('/')
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
@@ -478,5 +494,6 @@ app = webapp2.WSGIApplication([
     # ('/maps', MapsPage),
     ('/DeleteInterests', DeleteInterests),
     ('/favorites', FavoritesPage),
-    # ('/location', getCurrentLocation)
+    #('/location', getCurrentLocation),
+    ('/AddFavorite', AddFavorite)
 ], debug=True)

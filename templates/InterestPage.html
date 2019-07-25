@@ -1,12 +1,19 @@
+
+<!--
 <!DOCTYPE html>
 <html>
   <head>
     <title>InterestPage</title>
     <link rel="stylesheet" href="/css/InterestPage.css">
     <link href="https://fonts.googleapis.com/css?family=Fascinate&display=swap" rel="stylesheet">
-    <form style="display: inline" action="http://localhost:8080/favorites" method="get">
-      <button>Show Favorites Page</button>
-    </form>
+
+
+  <div>
+    <h3 align="right"><a href="http://localhost:8080/">Restaurants Page</a></h3>
+    <h3 align="right"><a href="http://localhost:8080/favorites"> Favorites Page</a></h3>
+
+  </div>
+
   <body>
     <h2>Todo</h2>
 
@@ -54,4 +61,146 @@
 
 
   </body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>InterestPage</title>
+  <!--<link rel="stylesheet" href="/css/InterestPage.css">-->
+  <link href="https://fonts.googleapis.com/css?family=Fascinate&display=swap" rel="stylesheet">
+  <form style="display: inline" action="http://localhost:8080/favorites" method="get">
+    <br><br><br><br><br><br>
+    <button>Show Favorites Page</button><br><br>
+  </form>
+</head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+<style>
+body, html {height: 100%}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
+.menu {display: none}
+.bgimg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/w3images/pizza.jpg");
+  min-height: 90%;
+}
+ul {
+  columns: 3;
+  column-gap: 35px;
+}
+.rotateimg180 {
+  transform: rotate(270deg);
+}
+</style>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top w3-hide-small">
+  <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
+    <a href="#" class="w3-bar-item w3-button">HOME</a>
+    <a href="#menu" class="w3-bar-item w3-button">MENU</a>
+    <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+    <a href="#googleMap" class="w3-bar-item w3-button">CONTACT</a>
+  </div>
+</div>
+
+<!-- Header with image -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-bottomleft w3-padding">
+    <span class="w3-tag w3-xlarge">Find restaurants of <i>YOUR</i>  preference</span>
+  </div>
+  <div class="w3-display-middle w3-center">
+    <p><a href="#menu" class="w3-button w3-xxlarge w3-black">Let me see the food interests list!</a></p>
+  </div>
+</header>
+
+<!-- Menu Container -->
+<div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menu">
+  <div class="w3-content">
+
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">THE INTERESTS LIST</h1>
+    <div class="w3-row w3-center w3-border w3-border-dark-grey">
+      <a href="javascript:void(0)" onclick="openMenu(event, 'Pizza');" id="myLink">
+        <div class="w3-col s4 tablink w3-padding-large w3-hover-red">Food Types</div>
+      </a>
+    </div>
+
+    <div class="w3-container menu w3-padding-32 w3-white">
+      <h1> <span class="w3-right w3-tag w3-dark-grey w3-round"></span></h1>
+    </div>
+        <form method="post" class="center_my_todo">
+        <div>
+
+          Food:
+          <ul>
+            {% set count =1 %}
+            {% for i in Possible_Interests%}
+            <li> {{i}} <input type="checkbox" id="interest" name="new_interest{{count}}" value="{{i}}"></li>
+
+            {% set count = count + 1 %}
+            {% endfor %}
+
+          </ul>
+        </div>
+        <input type="submit" name="" value="Submit">
+      </form>
+      <h1>Interests</h1>
+      <form class="" action="/DeleteInterests" method="post">
+        <table>
+          <tr>
+            <th>Added Interests</th>
+          </tr>
+          {% for d in Interests %}
+          <tr>
+            <td>{{d.interests}}</td>
+            <td><input type="checkbox" name="to_delete" value="{{d.key.urlsafe()}}"></td>
+          </tr>
+          {% endfor %}
+        </table>
+        <input type="submit" name="" value="Delete Selected">
+      </form> </h1>
+
+      <hr>
+
+
+    <br>
+
+  </div>
+</div>
+
+<!-- About Container -->
+<div class="w3-container w3-padding-64 w3-red w3-grayscale w3-xlarge" id="about">
+  <div class="w3-content">
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">About</h1>
+    <p>We are an elite group of individuals who know how to code. Would you like more information? Too bad, that's all you need to know and that's all you received.</p>
+    <p><strong><i>The Team?</i></strong><br> Natalie Abreu <br> Julian Esparza <br> Jessica Corona <br> Jamiel Abed<img src="static/group.jpg" style="width:150px" class="w3-circle w3-right" alt = "our team"></p>
+    <p>We are the Internet Explorers.</p>
+    <h1><b>Opening Hours</b></h1>
+
+    <div class="w3-row">
+      <div class="w3-col s6">
+        <p>We never close</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Image of location/map -->
+<img src="/w3images/map.jpg" class="w3-image w3-greyscale" style="width:100%;">
+
+<!-- Contact -->
+<div class="w3-container w3-padding-64 w3-blue-grey w3-grayscale-min w3-xlarge">
+  <div class="w3-content">
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Contact</h1>
+    <p>Find us at an undisclosed location or call us at 773-783-8300!</p>
+
+
+</body>
 </html>

@@ -6,9 +6,10 @@
     <title>Favorites</title>
     <link rel="stylesheet" href="/css/favorites.css">
     <div>
-    <form style="display: inline" action="http://localhost:8080/AddInterest" method="get">
-      <button>Show Interest Page</button>
-    </form>
+
+<h3 align="right"><a href="http://localhost:8080/AddInterest">Interest Page</a></h3>
+<h3 align="right"><a href="http://localhost:8080/"> Restaurants Page</a></h3>
+
     </div>
   </head>
   <body>
@@ -26,8 +27,8 @@
 <!-- this puts fav restaurants in a visable list -->
         <h1>Favorite Restaurants</h1>
         <ul>
-        {%for fav_restaurants in fav_restaurants%}
-          <li>{{fav_restaurants}}</li>
+        {%for restaurant_favs in restaurant_favs%}
+          <li>{{restaurant_favs}}</li>
         {%endfor%}
         </ul>
       </div>
