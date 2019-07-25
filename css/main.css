@@ -95,14 +95,29 @@ td:hover .rest-info{
   font-size: 12px;
 }
 .submit:hover {
-  background-color:darkgray;
+  background-color:hsl(4, 19%, 70%);
 }
 
 .buttonhover {
   align:right;
   float:right;
-  background-color:darkgray;
-  
+  margin: 2px 2px;
+  height:27px;
+  background-color: lightgray;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  line-height:27px;
+
+
+}
+.buttonhover:hover {
+  background-color: hsl(4, 19%, 70%);
 }
 
 .add_restaurant {
@@ -126,13 +141,17 @@ td:hover .rest-info{
 
 #logout-btn {
   font-family: "Times New Roman";
+  width: 100px;
   background-color: #f1f1f1;
   border: none;
   color: black;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
   margin: 4px 2px;
+}
+#logout-btn:hover{
+  background-color: hsl(4, 19%, 70%);
 }
