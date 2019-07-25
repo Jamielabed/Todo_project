@@ -54,3 +54,30 @@ td:hover .rest-info{
 #favorites:hover {
   font-size: 25px;
 }
+
+.filter-sort-form {
+  width: 250px;
+}
+.select {
+   width: 150px;
+   background-color: darkgray; /* Green */
+   border: none;
+   color: white;
+   padding: 5px 5px;
+   margin: 5px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 12px;
+}
+.submit {
+  background-color: darkgray; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
