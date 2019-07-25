@@ -40,8 +40,10 @@
                </div>
              </div>
              </a>
+          <form method="post" action="/AddFavorite">
+            <input type="text" name="restaurantname" value="{{restaurant['name']}}" hidden="true">
             <input type="submit" name="" value="Favorite">
-
+          </form>
 
            </td>
            {% if restaurants.index(restaurant) % 6 == 5%}
