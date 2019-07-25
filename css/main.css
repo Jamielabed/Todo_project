@@ -159,7 +159,7 @@ td:hover .rest-info{
   /*background-color: #f1f2f6;*/
 }
 
-#logout-btn {
+.log-btn {
   width: 100px;
   background-color: #f1f1f1;
   border: none;
