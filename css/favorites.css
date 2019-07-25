@@ -6,14 +6,23 @@
 .box {
   margin:20px;
 }
+
+h1 {
+  font-family: 'Barlow', sans-serif;
+}
+
+h3 {
+  font-style: italic;
+}
+
 body {
-  background-image: url("https://i.chzbgr.com/full/5460623104/hB335E31B/");
+  /*background-image: url("https://i.chzbgr.com/full/5460623104/hB335E31B/");*/
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: black;
   font-size: 20px;
-  font-family: 'Fascinate', cursive;
+  font-family: 'Nanum Gothic', sans-serif;
 
 }
 a {
