@@ -1,6 +1,7 @@
 
 body {
   background-color: #6D7A82;
+  font-family: 'Darker Grotesque', sans-serif;
 }
 
 .flex-container {
@@ -25,6 +26,7 @@ body {
 
 h1 {
   color: #edf1f2
+
 }
 h3 {
   color: #edf1f2
