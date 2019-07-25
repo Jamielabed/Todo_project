@@ -4,11 +4,7 @@
     <meta charset="utf-8">
     <title>Restaurants</title>
     <link rel="stylesheet" href="/css/main.css">
-
-
-    <button id = "interests-btn" class="buttonhover">Interests Page</button>
-
-    <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
 
 
   </head>
@@ -17,7 +13,10 @@
     const GOOGLE_API_KEY = "{{api_key}}"
     </script>
     {% if user %}
-    <h1> Find Restaurants near you! </h1>
+    <h1 id="header"> Find Restaurants near you! </h1>
+    <button id = "interests-btn" class="buttonhover">Interests Page</button><br><br><br>
+    <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
+
     {% endif %}
 
     {% if lat and long  %}

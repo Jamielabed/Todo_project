@@ -99,23 +99,24 @@ td:hover .rest-info{
 }
 
 .buttonhover {
-  align:right;
   float:right;
   margin: 2px 2px;
-  height:27px;
+  height:40px;
   background-color: lightgray;
   border: none;
   color: white;
   padding: 5px 10px;
-  margin: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
-  line-height:27px;
-
-
+  line-height:27px; }
+#header {
+  float:left;
+  font-family: 'Amatic SC', cursive;
 }
+
+
 .buttonhover:hover {
   background-color: hsl(4, 19%, 70%);
 }
