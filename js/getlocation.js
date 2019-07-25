@@ -38,13 +38,13 @@ function sendLocationToServer(lat,long) {
 
 
   //redirect to favorites page
-  favoritesBtn = document.querySelector("#favorites")
-  favoritesBtn.addEventListener('click', ()=> {
-    window.location.href = "/favorites";
-      window.location.href = "/AddInterest";
-   })
-  console.log("IN JAVASCRIPT MAIN")
-}
+  // favoritesBtn = document.querySelector("#favorites")
+  // favoritesBtn.addEventListener('click', ()=> {
+  //   window.location.href = "/favorites";
+  //     window.location.href = "/AddInterest";
+  //  })
+  // console.log("IN JAVASCRIPT MAIN")
+
 // console.log("IN JAVASCRIPT LOCATION")
 // console.log(getClientLocation())
 // let clientLocation = getClientLocation()
