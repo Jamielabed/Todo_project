@@ -25,16 +25,19 @@ body {
 }
 
 h1 {
-  color: #edf1f2
+  color: #edf1f2;
+  font-family: 'Darker Grotesque', sans-serif;
 
 }
 h3 {
-  color: #edf1f2
+  color: #edf1f2;
+  font-family: 'Darker Grotesque', sans-serif;
 }
 
 h2 {
   color: #edf1f2;
   font-weight: lighter;
+  font-family: 'Darker Grotesque', sans-serif;
 }
 
 a {
@@ -127,7 +130,8 @@ td:hover .rest-info{
   line-height:27px; }
 .header {
   float:left;
-  font-family: 'Amatic SC', cursive;
+  font-family: 'Darker Grotesque', sans-serif;
+  font-weight: lighter;
   margin:auto;
 }
 
