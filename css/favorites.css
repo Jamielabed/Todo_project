@@ -7,7 +7,7 @@
   margin:20px;
 }
 body {
-  background-image: url("https://i.chzbgr.com/full/5460623104/hB335E31B/"); 
+  background-image: url("https://i.chzbgr.com/full/5460623104/hB335E31B/");
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -15,4 +15,7 @@ body {
   font-size: 20px;
   font-family: 'Fascinate', cursive;
 
+}
+a {
+  color: black;
 }
