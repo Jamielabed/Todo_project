@@ -13,11 +13,19 @@
     <script type="text/javascript">
     const GOOGLE_API_KEY = "{{api_key}}"
     </script>
+    {% if user %}
+<div>
+    <h1 class="header">Find Restaurants near you!</h1><br><br>
+    <h2 class="header"> Click the restaurant to view its Yelp page or add it to your favorites! </h2>
+</div>
+    <button id = "interests-btn" class="buttonhover">Interests Page</button><br><br>
+    <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
 
 
 
 
 
+<<<<<<< HEAD
 
 
 {% if user %}
@@ -32,6 +40,13 @@
     </div>
     <div id="restaurants_info">
 
+=======
+    {% endif %}
+
+    {% if lat and long  %}
+    <div id="restaurants_info">
+      {% if user %}
+>>>>>>> parent of efb2044... formatting
        <!-- <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2> -->
        <br>
 
