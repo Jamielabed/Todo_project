@@ -5,9 +5,11 @@
     <title>Restaurants</title>
     <link rel="stylesheet" href="/css/main.css">
 
-    <h5 class="buttonhover"><button class="buttonhover"><a href="/AddInterest">Interest Page</a></button></h5>
 
-    <h5 class="buttonhover"><button class="buttonhover"><a href="/favorites"> Favorites Page</a></button></h5>
+    <button id = "interests-btn" class="buttonhover">Interests Page</button>
+
+    <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
+
 
   </head>
   <body>
@@ -15,7 +17,11 @@
     const GOOGLE_API_KEY = "{{api_key}}"
     </script>
     {% if user %}
+
     <h1> <center>Find Restaurants near you!</center> </h1>
+
+    <h2> Click the restaurant to view its Yelp page or add it to your favorites! </h2>
+
     {% endif %}
 
     {% if lat and long  %}

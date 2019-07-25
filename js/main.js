@@ -15,21 +15,14 @@ function formatBoxes() {
     console.log("SCREEN WIDTH: " + screen.width)
   }
   boxWidth()
-//
-//   // redirect to favorites page
-//   favoritesBtn = document.querySelector("#favorites")
-//   favoritesBtn.addEventListener('click', ()=> {
-//     window.location.href = "/favorites";
-//   })
-//   console.log("IN JAVASCRIPT MAIN")
-// }
 }
 formatBoxes()
 
-
-// sortChoice.addEventListener("submit", includeSortBy(latitude,longitude));
-//
-// function includeSortBy(lat,long) {
-//
-//   console.log("IN SORT BY FUNCTION")
-//   window.location.href = `/?lat=${latitude}&long=${longitude}&sort_selection=${sortChoice}`
+let interestsBtn = document.querySelector("#interests-btn")
+interestsBtn.addEventListener("click", ()=> {
+  window.location.href = "/AddInterest";
+})
+let favoritesBtn = document.querySelector("#favorites-btn")
+favoritesBtn.addEventListener("click", ()=> {
+  window.location.href = "/favorites";
+})
