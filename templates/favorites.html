@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="/css/favorites.css">
     <div>
 
-<h5 align="left" class="buttonhover"><button class="button"><a href="http://localhost:8080/AddInterest">Interest Page</a></button></h5>
-<h5 align="right" class="buttonhover"><button class="button"><a href="http://localhost:8080/"> Restaurants Page</a></button></h5>
+<h5 align="left" class="buttonhover"><button class="button"><a style="text-decoration: none" href="http://localhost:8080/AddInterest">Interest Page</a></button></h5>
+<h5 align="right" class="buttonhover"><button class="button"><a style="text-decoration: none" href="http://localhost:8080/"> Restaurants Page</a></button></h5>
 
     </div>
   </head>
@@ -28,7 +28,7 @@
 <!-- this puts fav restaurants in a visable list -->
         <h1>Favorite Restaurants</h1>
         <ul>
-        {%for restaurant_favs in restaurant_favs%}
+        {%for restaurant_favs in restaurant%}
           <li>{{restaurant_favs}}</li>
         {%endfor%}
         </ul>

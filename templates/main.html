@@ -51,9 +51,9 @@
                </div>
              </div>
              </a>
-            <form
-            <button type="button" class = "add_restaurant">Click to Favorite Me!</button>
-
+            <form action="/AddFavorite?restaurantname={{restaurant['name']}}" method="post">
+              <input type="submit" class = "add_restaurant">Click to Favorite Me!</input>
+            </form>
 
            </td>
            {% if restaurants.index(restaurant) % 6 == 5%}
