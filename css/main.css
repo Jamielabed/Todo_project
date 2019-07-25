@@ -120,9 +120,10 @@ td:hover .rest-info{
   display: inline-block;
   font-size: 12px;
   line-height:27px; }
-#header {
+.header {
   float:left;
   font-family: 'Amatic SC', cursive;
+  margin:auto;
 }
 
 
