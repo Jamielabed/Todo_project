@@ -70,14 +70,7 @@
   <title>InterestPage</title>
   <!--<link rel="stylesheet" href="/css/InterestPage.css">-->
   <link href="https://fonts.googleapis.com/css?family=Fascinate&display=swap" rel="stylesheet">
-  <form style="display: inline" action="/favorites" method="get">
-    <br><br><br><br><br><br>
-    <button>Show Favorites Page</button><br><br>
-  </form>
-  <form style="display: inline" action="/" method="get">
-    <br><br><br><br><br><br>
-    <button>Show Restaurants Page</button><br><br>
-  </form>
+
 </head>
 
 <meta charset="UTF-8">
@@ -124,11 +117,19 @@ ul {
   </div>
 </header>
 
+
+
 <!-- Menu Container -->
 <div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menu">
   <div class="w3-content">
 
     <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">THE INTERESTS LIST</h1>
+    <form style="display: inline" action="/favorites" method="get">
+      <button>Show Favorites Page</button><br><br>
+    </form>
+    <form style="display: inline" action="/" method="get">
+      <button>Show Restaurants Page</button><br><br>
+    </form>
     <div class="w3-row w3-center w3-border w3-border-dark-grey">
       <a href="javascript:void(0)" onclick="openMenu(event, 'Pizza');" id="myLink">
         <div class="w3-col s4 tablink w3-padding-large w3-hover-red">Food Types</div>

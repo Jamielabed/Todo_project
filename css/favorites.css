@@ -1,13 +1,60 @@
 .outer-box {
   display:grid;
   grid-template-columns: 1fr 1fr;
-
+  outline-style: solid;
+  outline-width: thin;
+  /* border */
+  box-sizing: border-box;
+  margin: auto;
+  width: 13in;
+  padding: 20px;
 }
 .box {
   margin:20px;
 }
 
+.button {
+  background-color: white;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttonhover {
+  background-color: white;
+  color: black;
+}
+
+.button:hover {
+  background-color: #d0d6db;
+  color: white;
+}
+
 h1 {
+  font-family: 'Jacques Francois Shadow', cursive;
+  font-size: 60px;
+  font-style: normal;
+  transition: all 0.3s ease-in;
+  text-decoration:none;
+}
+
+h1:hover{
+    -webkit-stroke-width: 5.3px;
+      -webkit-stroke-color: #FFFFFF;
+      -webkit-fill-color: #FFFFFF;
+      text-shadow: 1px 0px 20px #ffd624;
+}
+
+h2 {
+  font-size: 40px;
   font-family: 'Barlow', sans-serif;
 }
 
