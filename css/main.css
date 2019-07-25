@@ -130,11 +130,11 @@ td:hover .rest-info{
   line-height:27px; }
 .header {
   float:left;
-
   font-family: 'Darker Grotesque', sans-serif;
   font-weight: lighter;
-  margin:auto;
+  margin: auto;
 
+}
 
 .buttonhover:hover {
   background-color: hsl(4, 19%, 70%);
