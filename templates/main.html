@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/main.css">
 
     <h5 class="buttonhover"><button class="buttonhover"><a href="/AddInterest">Interest Page</a></button></h5>
-  
+
     <h5 class="buttonhover"><button class="buttonhover"><a href="/favorites"> Favorites Page</a></button></h5>
 
   </head>
@@ -14,8 +14,9 @@
     <script type="text/javascript">
     const GOOGLE_API_KEY = "{{api_key}}"
     </script>
-
+    {% if user %}
     <h1> Find Restaurants near you! </h1>
+    {% endif %}
 
     {% if lat and long  %}
     <div id="restaurants_info">
