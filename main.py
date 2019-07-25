@@ -9,6 +9,7 @@ import json
 from Restaurant_models import Restaurant
 import yelpapikey
 import googleapikey
+import time
 
 
 JINJA_ENV = jinja2.Environment(
@@ -62,6 +63,7 @@ def get_restaurant_list():
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
+        time.sleep(1)
         user = users.get_current_user()
         template = JINJA_ENV.get_template('templates/main.html')
         latitude = self.request.get('lat')

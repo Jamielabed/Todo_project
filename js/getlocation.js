@@ -42,4 +42,5 @@ function sendLocationToServer(lat,long) {
 //let clientLocation = getClientLocation()
 // console.log(typeof clientLocation)
 // console.log(clientLocation.location)
+
 getClientLocation()

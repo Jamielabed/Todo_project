@@ -14,14 +14,16 @@
       {% if user %}
        <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2>
        <br>
-       <form onsubmit="includeSortBy({{lat}}, {{long}})">
-         <select id="sort_selection">
+       <form action="/?lat={{lat}}&long={{long}}">
+         <select name="sort_selection">
            <option value="sort-by">Sort By</option>
            <option value="distance">Distance</option>
            <option value="rating">Rating</option>
            <option value="food type">Food Type</option>
           </select>
           <input type="submit" name="" value="Submit">
+          <input type="text" hidden name="lat" value="{{lat}}">
+          <input type="text" hidden name="long" value="{{long}}">
         </form>
         <br>
        <!--if food preferences != NONE -->
