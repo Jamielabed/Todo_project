@@ -12,7 +12,7 @@
     {% if lat and long  %}
     <div id="restaurants_info">
       {% if user %}
-       <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2>
+       <!-- <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2> -->
        <br>
        <form action="/?lat={{lat}}&long={{long}}">
          <select name="sort_selection">
