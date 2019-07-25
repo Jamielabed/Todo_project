@@ -46,7 +46,7 @@ def get_restaurant_info(lat,long):
 
 
 def get_interests_list():
-    existing_interests = Interest.query(ancestor = root_parent()).fetch()
+    existing_interests = Interest.query(Interest.user == users.get_current_user(), ancestor = root_parent()).fetch()
     interests_list = []
     for interest in existing_interests:
         interests_list.append(interest.interests)
@@ -57,7 +57,7 @@ def get_interests_list():
 
 # this will be the insterest list for RESTURANTS
 def get_restaurant_list():
-    current_interests = RestaurantInterest.query(ancestor = root_parent()).fetch()
+    current_interests = RestaurantInterest.query(RestaurantInterest.user == users.get_current_user(),ancestor = root_parent()).fetch()
     RestaurantInterests_list = []
     for rest_int in current_interests:
         RestaurantInterests_list.append(rest_int.rest_int)
@@ -309,7 +309,8 @@ class AddInterestPage(webapp2.RequestHandler):
                 #then don't add it. Otherwise, add it
                 new_interest = Interest(parent = root_parent())
                 new_interest.interests = added
-                existing_interests = Interest.query(Interest.interests == added, ancestor = root_parent()).fetch()
+                new_interest.user = users.get_current_user()
+                existing_interests = Interest.query(Interest.user == users.get_current_user(), Interest.interests == added, ancestor = root_parent()).fetch()
                 if(len(existing_interests) == 0):
                     new_interest.put()
 
@@ -506,7 +507,11 @@ class AddFavorite(webapp2.RequestHandler):
     def post(self):
         new_interest = RestaurantInterest(parent = root_parent())
         new_interest.rest_int = self.request.get("restaurantname")
-        print(new_interest)
+        new_interest.user = users.get_current_user()
+        current_interests = RestaurantInterest.query(RestaurantInterest.user == users.get_current_user(), RestaurantInterest.rest_int == self.request.get("restaurantname"), ancestor = root_parent()).fetch()
+        if (len(current_interests) == 0):
+            new_interest.put()
+
         new_interest.put()
         self.redirect('/')
 
