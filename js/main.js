@@ -15,14 +15,14 @@ function formatBoxes() {
     console.log("SCREEN WIDTH: " + screen.width)
   }
   boxWidth()
-
-  // redirect to favorites page
-  favoritesBtn = document.querySelector("#favorites")
-  favoritesBtn.addEventListener('click', ()=> {
-    window.location.href = "/favorites";
-  })
-  console.log("IN JAVASCRIPT MAIN")
-}
+//
+//   // redirect to favorites page
+//   favoritesBtn = document.querySelector("#favorites")
+//   favoritesBtn.addEventListener('click', ()=> {
+//     window.location.href = "/favorites";
+//   })
+//   console.log("IN JAVASCRIPT MAIN")
+// }
 
 formatBoxes()
 

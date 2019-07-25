@@ -65,25 +65,47 @@ def get_restaurant_list():
         RestaurantInterests_list.append(rest_int.rest_int)
     return RestaurantInterests_list
 
+def removeSpaces(food_list, food_list_no_spaces):
+
+    for type in food_list:
+        type = type[0:-1]
+        food_list_no_spaces.append(type)
+    return food_list_no_spaces
 
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        time.sleep(1)
+        #time.sleep(1)
         user = users.get_current_user()
         template = JINJA_ENV.get_template('templates/main.html')
         latitude = self.request.get('lat')
         longitude = self.request.get('long')
         currentLocation = [latitude, longitude]
         food_types = get_interests_list()
+        food_types_return = []
+        removeSpaces(food_types,food_types_return)
+
         restaurants_out = []
+        restaurants_out_prefilter = []
         sortType = self.request.get('sort_selection')
+        filterSelection = self.request.get('filter_selection')
         print "SORTTYPE OUTSIDE: " + sortType
         print "LATOUTSIDE: " + latitude
         if latitude and longitude:
-            restaurants_out = filterRestaurants(food_types,latitude,longitude)
-            restaurants_out = getDistances(restaurants_out, currentLocation)
-
+            restaurants_out_prefilter = filterRestaurants(food_types,latitude,longitude)
+            restaurants_out_prefilter = getDistances(restaurants_out_prefilter, currentLocation)
+            print filterSelection
+            if filterSelection != "" and filterSelection != "all-types":
+                print "REACHED"
+                print restaurants_out_prefilter
+                for restaurant in restaurants_out_prefilter:
+                    print restaurant['name']
+                    for cat_num in range(len(restaurant['categories'])):
+                        if restaurant['categories'][cat_num]['title'] == filterSelection:
+                            restaurants_out.append(restaurant)
+                            print "APPENDED Restaurant"
+            else:
+                restaurants_out = restaurants_out_prefilter
             print "sortType: " + sortType
             if sortType == "distance" or sortType == "sort-by":
                 sortbyDuration(restaurants_out)
@@ -97,6 +119,9 @@ class MainPage(webapp2.RequestHandler):
                  'lat': latitude,
                  'long': longitude,
                  "restaurants": restaurants_out,
+                 "sort_selection":sortType,
+                 "food_types": food_types_return,
+                 "filter_selection": filterSelection
                 }
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
