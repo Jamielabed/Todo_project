@@ -69,7 +69,10 @@ body {
   background-repeat: no-repeat;
   color: black;
   font-size: 20px;
-font-family: 'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
+  height: 200px;
+  /*background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to bottom right, white, #EFE5DC); /*
 
 }
 a {
