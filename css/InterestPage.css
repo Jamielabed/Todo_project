@@ -18,3 +18,6 @@ ul {
   columns: 3;
   column-gap: 35px;
 }
+a {
+  color: black;
+}
