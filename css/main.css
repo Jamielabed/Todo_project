@@ -53,6 +53,7 @@ td:hover .rest-info{
 }
 #favorites:hover {
   font-size: 25px;
+  color: #d1af1b;
 }
 
 .filter-sort-form {
