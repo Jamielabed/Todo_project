@@ -41,11 +41,15 @@
 }
 
 h1 {
-  font-family: 'Jacques Francois Shadow', cursive;
-  font-size: 60px;
+font-family: 'Hind Guntur', sans-serif;
+  font-size: 55px;
   font-style: normal;
   transition: all 0.3s ease-in;
   text-decoration:none;
+}
+
+li {
+  font-size: 18px;
 }
 
 h1:hover{
@@ -56,8 +60,8 @@ h1:hover{
 }
 
 h2 {
-  font-size: 40px;
-font-family: 'Cormorant Garamond', serif;
+  font-size: 35px;
+font-family: 'Hind Guntur', sans-serif;
 }
 
 h3 {
@@ -72,7 +76,7 @@ body {
   background-repeat: no-repeat;
   color: black;
   font-size: 20px;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Hind Guntur', sans-serif;
   height: 200px;
   /*background-color: red; /* For browsers that do not support gradients */
 

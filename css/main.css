@@ -98,6 +98,8 @@ td:hover .rest-info{
 .buttonhover {
   align:right;
   float:right;
+  background-color:darkgray;
+  
 }
 
 .add_restaurant {
