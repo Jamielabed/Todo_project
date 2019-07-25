@@ -117,7 +117,8 @@ td:hover .rest-info{
 
 .buttonhover {
   float:right;
-  margin: 2px 2px;
+  width: 150px;
+  margin: auto;
   height:40px;
   background-color: lightgray;
   border: none;
