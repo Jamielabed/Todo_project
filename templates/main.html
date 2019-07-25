@@ -11,13 +11,14 @@
     <script type="text/javascript">
     const GOOGLE_API_KEY = "{{api_key}}"
     </script>
+
     {% if lat and long  %}
     <div id="restaurants_info">
       {% if user %}
        <!-- <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2> -->
        <br>
 
-
+       <div id=head-btns>
          <form class = "filter-sort-form" action="/?lat={{lat}}&long={{long}}&filter_selection={{filter_selection}}">
            <select class = "select" name="sort_selection">
              {%if sort_selection == "distance"%}
@@ -65,9 +66,12 @@
        <!--if food preferences != NONE -->
 
 
-
+     </div>
        <div class="flex-container">
          <table id="restaurants-table">
+           {%if restaurants|length == 0%}
+           <h1>We couldn't find any restaurants of that type :(</h1>
+           {%else%}
            {%for restaurant in restaurants%}
            {% if restaurants.index(restaurant) % 6 == 0%}
             <tr>
@@ -95,6 +99,7 @@
            {%endif%}
         <!-- <button type="button">Click Me!</button> -->
            {%endfor%}
+           {%endif%}
           </table>
         </div>
 
