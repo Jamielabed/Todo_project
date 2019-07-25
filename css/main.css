@@ -160,7 +160,6 @@ td:hover .rest-info{
 }
 
 #logout-btn {
-  font-family: "Times New Roman";
   width: 100px;
   background-color: #f1f1f1;
   border: none;
@@ -171,6 +170,7 @@ td:hover .rest-info{
   display: inline-block;
   font-size: 14px;
   margin: 4px 2px;
+  font-family: 'Darker Grotesque', sans-serif;
 }
 #logout-btn:hover{
   background-color: hsl(4, 19%, 70%);
