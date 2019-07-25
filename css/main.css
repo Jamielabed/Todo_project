@@ -82,3 +82,28 @@ td:hover .rest-info{
   display: inline-block;
   font-size: 12px;
 }
+
+.button {
+  background-color: white;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttonhover {
+  background-color: white;
+  color: black;
+}
+
+.button:hover {
+  background-color: #d0d6db;
+  color: white;
+}
