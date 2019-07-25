@@ -85,7 +85,7 @@
        <div class="flex-container">
          <table id="restaurants-table">
            {%if restaurants|length == 0%}
-           <h1><font color="#6b6b6b"> We couldn't find any restaurants of that type :(</font></h1>
+           <center><h1><font color="#6b6b6b"> We couldn't find any restaurants of that type :(</font></h1></center>
            {%else%}
            {%for restaurant in restaurants%}
            {% if restaurants.index(restaurant) % 6 == 0%}
