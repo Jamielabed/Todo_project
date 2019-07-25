@@ -14,17 +14,47 @@
       {% if user %}
        <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2>
        <br>
-       <form action="/?lat={{lat}}&long={{long}}">
+       <form action="/?lat={{lat}}&long={{long}}&filter_selection={{filter_selection}}">
          <select name="sort_selection">
+           {%if sort_selection == "distance"%}
+           <option value="sort-by">Sort By</option>
+           <option selected value="distance">Distance</option>
+           <option value="rating">Rating</option>
+           {%elif sort_selection == "rating"%}
+           <option value="sort-by">Sort By</option>
+           <option value="distance">Distance</option>
+           <option selected value="rating">Rating</option>
+           {%else%}
            <option value="sort-by">Sort By</option>
            <option value="distance">Distance</option>
            <option value="rating">Rating</option>
-           <option value="food type">Food Type</option>
+           {%endif%}
           </select>
+
           <input type="submit" name="" value="Submit">
+
+          <input type="text" hidden name="filter_selection" value="{{filter_selection}}">
           <input type="text" hidden name="lat" value="{{lat}}">
           <input type="text" hidden name="long" value="{{long}}">
         </form>
+
+        <form action="/?lat={{lat}}&long={{long}}&sort_selection={{sort_selection}}">
+          <select name="filter_selection" value = "Filter">
+            <option value="all-types">All Food Types</option>
+            {%for food_type in food_types%}
+            {%if filter_selection == food_type%}
+            <option selected value="{{food_type}}">{{food_type}}</option>
+            {%else%}
+            <option value="{{food_type}}">{{food_type}}</option>
+            {%endif%}
+            {%endfor%}
+           </select>
+
+           <input type="submit" name="" value="Submit">
+           <input type="text" hidden name="lat" value="{{lat}}">
+           <input type="text" hidden name="long" value="{{long}}">
+           <input type="text" hidden name="sort_selection" value="{{sort_selection}}">
+         </form>
         <br>
        <!--if food preferences != NONE -->
 
