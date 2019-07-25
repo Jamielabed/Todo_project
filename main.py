@@ -436,6 +436,9 @@ class FavoritesPage(webapp2.RequestHandler):
 
 class AddFavorite(webapp2.RequestHandler):
     def post(self):
+        data = {
+            'RestaurantInterest': RestaurantInterest.query(ancestor=root_parent()).fetch(),
+            }
         self.response.write(self.request.get("restaurantname"))
         new_interest = RestaurantInterest(parent = root_parent())
         new_interest.rest_int = self.request.get("restaurantname")
