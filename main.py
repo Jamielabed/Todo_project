@@ -23,10 +23,12 @@ def root_parent():
 # database for FOOD TYPES
 class Interest(ndb.Model):
     interests = ndb.StringProperty()
+    user = users.get_current_user()
 
 # database for RESTURANTS
 class RestaurantInterest(ndb.Model):
     rest_int = ndb.StringProperty()
+    user = users.get_current_user()
 
 def get_restaurant_info(lat,long):
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
