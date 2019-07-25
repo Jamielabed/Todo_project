@@ -5,7 +5,10 @@ body {
 .flex-container {
   display: flex;
   flex-wrap: nowrap;
-  background-color: #916562;
+  /*
+  background-color: hsl(4, 19%, 48%);
+  */
+  background-color: hsl(203, 9%, 85%);
   margin: auto;
   vertical-align: text-bottom;
 }
@@ -111,5 +114,19 @@ td:hover .rest-info{
 
 }
 .add_restaurant:hover {
-  background-color: #f1f2f6;
+  background-color: hsl(4, 19%, 70%);
+  /*background-color: #f1f2f6;*/
+}
+
+#logout-btn {
+  font-family: "Times New Roman";
+  background-color: #f1f1f1;
+  border: none;
+  color: black;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
 }
