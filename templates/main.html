@@ -4,13 +4,18 @@
     <meta charset="utf-8">
     <title>Restaurants</title>
     <link rel="stylesheet" href="/css/main.css">
-    <h5 class="buttonhover"><button class="button"><a href="/AddInterest">Interest Page</a></button></h5>
-    <h5 class="buttonhover"><button class="button"><a href="/favorites"> Favorites Page</a></button></h5>
+
+    <h5 class="buttonhover"><button class="buttonhover"><a href="/AddInterest">Interest Page</a></button></h5>
+  
+    <h5 class="buttonhover"><button class="buttonhover"><a href="/favorites"> Favorites Page</a></button></h5>
+
   </head>
   <body>
     <script type="text/javascript">
     const GOOGLE_API_KEY = "{{api_key}}"
     </script>
+
+    <h1> Find Restaurants near you! </h1>
 
     {% if lat and long  %}
     <div id="restaurants_info">
@@ -104,10 +109,10 @@
         </div>
 
       <br>
-       <a href="{{logout_url}}">Logout</a>
+       <a id="logout-btn" href="{{logout_url}}">Logout</a>
        {% else %}
       <h1>No user!</h1>
-       <a href="{{login_url}}">Login</a>
+       <a id="login-btn" href="{{login_url}}">Login</a>
       {% endif %}
     </div>
     <script type="text/javascript" src="/js/main.js"></script>
