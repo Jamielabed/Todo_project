@@ -61,6 +61,7 @@ td:hover .rest-info{
 }
 .select {
    width: 150px;
+   height: 27px;
    background-color: darkgray; /* Green */
    border: none;
    color: white;
@@ -72,7 +73,8 @@ td:hover .rest-info{
    font-size: 12px;
 }
 .submit {
-  background-color: darkgray; /* Green */
+  height:27px;
+  background-color: lightgray;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -82,28 +84,28 @@ td:hover .rest-info{
   display: inline-block;
   font-size: 12px;
 }
-
-.button {
-  background-color: white;
-  border: none;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  cursor: pointer;
+.submit:hover {
+  background-color:darkgray;
 }
 
 .buttonhover {
-  background-color: white;
-  color: black;
+  align:right;
+  float:right;
 }
 
-.button:hover {
-  background-color: #d0d6db;
-  color: white;
+.add_restaurant {
+  font-family: "Times New Roman";
+  background-color: #f1f1f1;
+  border: none;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+
+}
+.add_restaurant:hover {
+  background-color: #f1f2f6;
 }
