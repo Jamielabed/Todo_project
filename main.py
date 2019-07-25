@@ -294,7 +294,8 @@ class AddInterestPage(webapp2.RequestHandler):
         template = JINJA_ENV.get_template('templates/InterestPage.html')
         data = {
             'Interests': Interest.query(Interest.user == users.get_current_user(), ancestor=root_parent()).fetch(),
-            'Possible_Interests': possible_interests
+            'Possible_Interests': possible_interests,
+            'logout_url': users.create_logout_url('/')
         }
         self.response.headers['Content-Type'] = 'text/html'
         self.response.write(template.render(data))
@@ -495,7 +496,8 @@ class FavoritesPage(webapp2.RequestHandler):
         restaurant_favs = get_restaurant_list()
         data={
         "food_types":food_types,
-        "restaurant": restaurant_favs
+        "restaurant": restaurant_favs,
+        'logout_url': users.create_logout_url('/')
 
         }
 
