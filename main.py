@@ -15,7 +15,7 @@ JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
-def root_parent():
+def root_parent(): 
 
     return ndb.Key('Parent', 'default_parent')
 
