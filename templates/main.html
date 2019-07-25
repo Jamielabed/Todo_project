@@ -30,7 +30,7 @@
         <button id = "interests-btn" class="buttonhover">Interests Page</button><br><br>
         <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
     </div>
-
+    <div id="restaurants_info">
       {% if user %}
        <!-- <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2> -->
        <br>
@@ -84,11 +84,10 @@
 
 
      </div>
-     <div id="restaurants_info">
        <div class="flex-container">
          <table id="restaurants-table">
            {%if restaurants|length == 0%}
-           <center><h1><font color="#6b6b6b"> We couldn't find any restaurants of that type :(</font></h1></center>
+           <h1>We couldn't find any restaurants of that type :(</h1>
            {%else%}
            {%for restaurant in restaurants%}
            {% if restaurants.index(restaurant) % 6 == 0%}
