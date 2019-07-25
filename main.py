@@ -509,7 +509,7 @@ class AddFavorite(webapp2.RequestHandler):
         new_interest = RestaurantInterest(parent = root_parent())
         new_interest.rest_int = self.request.get("restaurantname")
         new_interest.user = users.get_current_user()
-        current_interests = RestaurantInterest.query(Interest.user == users.get_current_user(), RestaurantInterest.rest_int == self.request.get("restaurantname"), ancestor = root_parent()).fetch()
+        current_interests = RestaurantInterest.query(RestaurantInterest.user == users.get_current_user(), RestaurantInterest.rest_int == self.request.get("restaurantname"), ancestor = root_parent()).fetch()
         if (len(current_interests) == 0):
             new_interest.put()
         self.redirect('/')
