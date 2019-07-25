@@ -61,11 +61,11 @@ td:hover .rest-info{
   color: transparent;
   font-size: 15px;
   display: inline-block;
-  vertical-align: text-bottom;
-
 }
 
-
+.rest-info-div {
+  margin: -30px;
+}
 #favorites {
   float: right;
   margin: 10px;
@@ -118,7 +118,6 @@ td:hover .rest-info{
 .buttonhover {
   float:right;
   width: 150px;
-  margin: auto;
   height:40px;
   background-color: lightgray;
   border: none;
@@ -131,10 +130,10 @@ td:hover .rest-info{
   line-height:27px; }
 .header {
   float:left;
+
   font-family: 'Darker Grotesque', sans-serif;
   font-weight: lighter;
   margin:auto;
-}
 
 
 .buttonhover:hover {
