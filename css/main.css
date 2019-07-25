@@ -27,6 +27,9 @@ body {
 h1 {
   color: #edf1f2
 }
+h3 {
+  color: #edf1f2
+}
 
 h2 {
   color: #edf1f2;
@@ -121,9 +124,10 @@ td:hover .rest-info{
   display: inline-block;
   font-size: 12px;
   line-height:27px; }
-#header {
+.header {
   float:left;
   font-family: 'Amatic SC', cursive;
+  margin:auto;
 }
 
 

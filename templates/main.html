@@ -14,14 +14,14 @@
     </script>
     {% if user %}
 
-    <h1> <center>Find Restaurants near you!</center> </h1>
+    <h1 class="header">Find Restaurants near you!</h1><br><br><br>
+    <h2 class="header"> Click the restaurant to view its Yelp page or add it to your favorites! </h2>
     <button id = "interests-btn" class="buttonhover">Interests Page</button><br><br><br>
+
     <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
 
 
-    <h1> <center>Find Restaurants near you!</center> </h1>
 
-    <h2> Click the restaurant to view its Yelp page or add it to your favorites! </h2>
 
 
     {% endif %}
@@ -84,7 +84,10 @@
        <div class="flex-container">
          <table id="restaurants-table">
            {%if restaurants|length == 0%}
-           <h1>We couldn't find any restaurants of that type :(</h1>
+           <div>
+           <h1>We couldn't find any restaurants of that type :(<br></h1>
+           <h3>Add more interests to your list to get a better selection!</h3>
+         </div>
            {%else%}
            {%for restaurant in restaurants%}
            {% if restaurants.index(restaurant) % 6 == 0%}
