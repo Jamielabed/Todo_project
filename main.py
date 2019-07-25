@@ -15,7 +15,7 @@ JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
-def root_parent(): 
+def root_parent():
 
     return ndb.Key('Parent', 'default_parent')
 
@@ -48,6 +48,8 @@ def get_interests_list():
     for interest in existing_interests:
         interests_list.append(interest.interests)
     return interests_list
+
+
 
 
 # this will be the insterest list for RESTURANTS
@@ -284,7 +286,7 @@ class searchResults(webapp2.RequestHandler):
         location = self.request.get('location')
         index_template = JINJA_ENV.get_template('templates/Restaurants.html')
         data = {
-            'data': get_restaurant_info(query)
+            'data': get_restaurant_info("84.3","78.333")
         }
         print data
         self.response.write(index_template.render(data))
@@ -404,12 +406,6 @@ def sortbyDuration(restaurantsList):
                 j+=1
 
 
-def get_interests_list():
-   existing_interests = Interest.query(ancestor = root_parent()).fetch()
-   interests_list = []
-   for interest in existing_interests:
-       interests_list.append(interest.interests)
-   return interests_list
 
 
 
