@@ -21,3 +21,7 @@ ul {
 a {
   color: black;
 }
+
+.show-btn:hover {
+  color:gray;
+}
