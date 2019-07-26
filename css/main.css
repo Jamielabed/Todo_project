@@ -175,3 +175,12 @@ td:hover .rest-info{
 #logout-btn:hover{
   background-color: hsl(4, 19%, 70%);
 }
+
+#login-btn:hover {
+  background-color: lightgray;
+}
+
+
+#no-user {
+  text-align: center;
+}
