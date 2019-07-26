@@ -6,91 +6,58 @@
     <link rel="stylesheet" href="/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Barlow|Cormorant+Garamond|Darker+Grotesque|Hind+Guntur|Nanum+Gothic&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
-
-
   </head>
+
   <body>
     <script type="text/javascript">
-    const GOOGLE_API_KEY = "{{api_key}}"
+      const GOOGLE_API_KEY = "{{api_key}}"
     </script>
     {% if user %}
-<div>
-    <h1 class="header">Find Restaurants near you!</h1><br><br>
-    <h2 class="header"> Click the restaurant to view its Yelp page or add it to your favorites! </h2>
-</div>
-    <button id = "interests-btn" class="buttonhover">Interests Page</button><br><br>
-    <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
-
-
-
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-{% if user %}
     {% if lat and long  %}
-    <div>
-        <h1 class="header">Find Restaurants near you!</h1><br><br>
-        <h2 class="header"> Click the restaurant to view its Yelp page or add it to your favorites! </h2>
-    </div>
-    <div>
-        <button id = "interests-btn" class="buttonhover">Interests Page</button><br><br>
-        <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
-    </div>
-    <div id="restaurants_info">
 
-=======
-    {% endif %}
-
-    {% if lat and long  %}
-=======
-    {% endif %}
-
-    {% if lat and long  %}
->>>>>>> parent of efb2044... formatting
-    <div id="restaurants_info">
-      {% if user %}
->>>>>>> parent of efb2044... formatting
-       <!-- <h2>User is {{user.email()}}<span id="favorites"> My Favorites</span></h2> -->
-       <br>
-
-       <div id=head-btns>
-         <form class = "filter-sort-form" action="/?lat={{lat}}&long={{long}}&filter_selection={{filter_selection}}">
-           <select class = "select" name="sort_selection">
-             {%if sort_selection == "distance"%}
-             <option value="sort-by">Sort By</option>
-             <option selected value="distance">Distance</option>
-             <option value="rating">Rating</option>
-             {%elif sort_selection == "rating"%}
-             <option value="sort-by">Sort By</option>
-             <option value="distance">Distance</option>
-             <option selected value="rating">Rating</option>
-             {%else%}
-             <option value="sort-by">Sort By</option>
-             <option value="distance">Distance</option>
-             <option value="rating">Rating</option>
-             {%endif%}
-            </select>
-
-            <input class="submit" type="submit" name="" value="Submit">
-
-            <input type="text" hidden name="filter_selection" value="{{filter_selection}}">
-            <input type="text" hidden name="lat" value="{{lat}}">
-            <input type="text" hidden name="long" value="{{long}}">
-          </form>
-
-
-          <form class = "filter-sort-form" action="/?lat={{lat}}&long={{long}}&sort_selection={{sort_selection}}">
-            <select class = "select" name="filter_selection" value = "Filter">
-              <option value="all-types">All Food Types</option>
-              {%for food_type in food_types%}
-              {%if filter_selection == food_type%}
-              <option selected value="{{food_type}}">{{food_type}}</option>
+        <div>
+          <h1 class="header">Find Restaurants near you!</h1><br><br>
+          <h2 class="header"> Click the restaurant to view its Yelp page or add it to your favorites! </h2>
+        </div>
+        <div>
+          <button id = "interests-btn" class="buttonhover">Interests Page</button><br><br>
+          <button id = "favorites-btn" class="buttonhover">Favorites Page</button>
+        </div>
+        <div id="restaurants_info">
+          <br>
+          <div id=head-btns>
+            <form class = "filter-sort-form" action="/?lat={{lat}}&long={{long}}&filter_selection={{filter_selection}}">
+              <select class = "select" name="sort_selection">
+              {%if sort_selection == "distance"%}
+               <option value="sort-by">Sort By</option>
+               <option selected value="distance">Distance</option>
+               <option value="rating">Rating</option>
+              {%elif sort_selection == "rating"%}
+               <option value="sort-by">Sort By</option>
+               <option value="distance">Distance</option>
+               <option selected value="rating">Rating</option>
               {%else%}
-              <option value="{{food_type}}">{{food_type}}</option>
+               <option value="sort-by">Sort By</option>
+               <option value="distance">Distance</option>
+               <option value="rating">Rating</option>
               {%endif%}
+              </select>
+              <input class="submit" type="submit" name="" value="Submit">
+              <input type="text" hidden name="filter_selection" value="{{filter_selection}}">
+              <input type="text" hidden name="lat" value="{{lat}}">
+              <input type="text" hidden name="long" value="{{long}}">
+            </form>
+
+
+            <form class = "filter-sort-form" action="/?lat={{lat}}&long={{long}}&sort_selection={{sort_selection}}">
+              <select class = "select" name="filter_selection" value = "Filter">
+                <option value="all-types">All Food Types</option>
+              {%for food_type in food_types%}
+                {%if filter_selection == food_type%}
+                  <option selected value="{{food_type}}">{{food_type}}</option>
+                {%else%}
+                  <option value="{{food_type}}">{{food_type}}</option>
+                {%endif%}
               {%endfor%}
              </select>
 
@@ -98,60 +65,58 @@
              <input type="text" hidden name="lat" value="{{lat}}">
              <input type="text" hidden name="long" value="{{long}}">
              <input type="text" hidden name="sort_selection" value="{{sort_selection}}">
-           </form>
-        <br>
-        <br>
-       <!--if food preferences != NONE -->
-
-
-     </div>
-       <div class="flex-container">
-         <table id="restaurants-table">
-           {%if restaurants|length == 0%}
-           <h1>We couldn't find any restaurants of that type :(</h1>
-           {%else%}
-           {%for restaurant in restaurants%}
-           {% if restaurants.index(restaurant) % 6 == 0%}
-            <tr>
-           {%endif%}
-           <td>
-           <a href = "{{restaurant['url']}}"target="_blank">
-             <div class="restaurant">
-               <p class = "restaurant-head">{{restaurant['name']}}</p>
-               <div class = "rest-info-div">
-                 <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}
-                   <br>Drive Time: {{restaurant["duration"]}}
-                   <br>Type of Food: {{restaurant["categories"][0]["title"]}}
-                 </p>
-               </div>
-             </div>
-             </a>
-            <form action="/AddFavorite?restaurantname={{restaurant['name']}}" method="post">
-              <input type="submit" class = "add_restaurant" value="Add to Favorites"></input>
             </form>
+            <br>
+            <br>
+            <!--if food preferences != NONE -->
+          </div>
+          <div class="flex-container">
+            <table id="restaurants-table">
+              {%if restaurants|length == 0%}
+                <h1>We couldn't find any restaurants of that type :(</h1>
+              {%else%}
+                {%for restaurant in restaurants%}
+                  {% if restaurants.index(restaurant) % 6 == 0%}
+                    <tr>
+                  {%endif%}
+                    <td>
+                      <a href = "{{restaurant['url']}}"target="_blank">
+                        <div class="restaurant">
+                          <p class = "restaurant-head">{{restaurant['name']}}</p>
+                          <div class = "rest-info-div">
+                            <p class = "rest-info">Yelp Rating: {{restaurant["rating"]}}
+                              <br>Drive Time: {{restaurant["duration"]}}
+                              <br>Type of Food: {{restaurant["categories"][0]["title"]}}
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                      <form action="/AddFavorite?restaurantname={{restaurant['name']}}" method="post">
+                <input type="submit" class = "add_restaurant" value="Add to Favorites"></input>
+              </form>
+                    </td>
+                  {% if restaurants.index(restaurant) % 6 == 5%}
+                    </tr>
+                  {%endif%}
+                {%endfor%}
+  <!--81-->   {%endif%}
+            </table>
+          </div>
 
-           </td>
-           {% if restaurants.index(restaurant) % 6 == 5%}
-            </tr>
-           {%endif%}
-        <!-- <button type="button">Click Me!</button> -->
-           {%endfor%}
-           {%endif%}
-          </table>
+          <br>
+          <a class = "log-btn" id="logout-btn" href="{{logout_url}}">Logout</a>
         </div>
 
-      <br>
-       <a class = "log-btn" id="logout-btn" href="{{logout_url}}">Logout</a>
-       {% else %}
-      <h1>No user! Please log in to view food types and restaurants</h1>
-       <a class = "log-btn" id="login-btn" href="{{login_url}}">Login</a>
-      {% endif %}
-    </div>
-    <script type="text/javascript" src="/js/main.js"></script>
+       <script type="text/javascript" src="/js/main.js"></script>
 
-    {%else%}
-    <script type="text/javascript" src="/js/getlocation.js"></script>
+<!--lat&long-->{%else%}
+       <script type="text/javascript" src="/js/getlocation.js"></script>
 
-    {%endif%}
+<!--lat&long-->{%endif%}
+<!--user--> {% else %}
+          <h1>No user! Please log in to view food types and restaurants</h1>
+          <a class = "log-btn" id="login-btn" href="{{login_url}}">Login</a>
+
+<!--user--> {% endif %}
   </body>
 </html>
