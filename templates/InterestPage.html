@@ -68,7 +68,7 @@
 <html>
 <head>
   <title>InterestPage</title>
-  <link rel="stylesheet" href="/css/InterestPage.css">
+  <!--<link rel="stylesheet" href="/css/InterestPage.css">-->
   <link href="https://fonts.googleapis.com/css?family=Fascinate&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Barlow|Cormorant+Garamond|Nanum+Gothic&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Barlow|Cormorant+Garamond|Darker+Grotesque|Hind+Guntur|Nanum+Gothic&display=swap" rel="stylesheet">
@@ -95,6 +95,12 @@ ul {
 }
 .rotateimg180 {
   transform: rotate(270deg);
+}
+.show-btn {
+  width:350px;
+}
+.show-btn:hover {
+  background-color:lightgray;
 }
 </style>
 <body>
@@ -125,13 +131,16 @@ ul {
 <div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menu">
   <div class="w3-content">
 
-    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">THE INTERESTS LIST</h1>
-    <form style="display: inline" action="/favorites" method="get">
-      <button class="show-btn">Show Favorites Page</button><br><br>
+
+    <div style="float:right">
+    <form style="margin:10px" action="/favorites" method="get">
+      <button class="show-btn">Show Favorites Page</button><br>
     </form>
-    <form style="display: inline" action="/" method="get">
+    <form style="margin:10px" action="/" method="get">
       <button class="show-btn">Show Restaurants Page</button><br><br>
     </form>
+  </div><br>
+<h1 class="w3-jumbo" style="margin-bottom:64px" style="float:left">THE INTERESTS LIST</h1>
     <div class="w3-row w3-center w3-border w3-border-dark-grey">
       <a href="javascript:void(0)" onclick="openMenu(event, 'Pizza');" id="myLink">
         <div class="w3-col w3-padding-large">Food Types</div>
